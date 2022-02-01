@@ -21,6 +21,8 @@ The demos/demo-all/DemoAll scene demonstrates support for all of the movement me
  - Gliding
  - Wind blown
 
+The associated [README.md](demos/demo-all/README.md) contains the overview of creating the player with all these mechanics.
+
 The map contains numerous objects to test out the different mechanics, including:
  - An ice-rink with low traction
  - A jump spot which greatly enhances the players jump height
