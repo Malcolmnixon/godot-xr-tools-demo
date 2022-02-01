@@ -40,7 +40,7 @@ export var glide_min_fall_speed = -1.5
 export var glide_fall_speed := -2.0
 
 ## Glide forward speed
-export var glide_forward_speed := 8.0
+export var glide_forward_speed := 12.0
 
 ## Slew rate to transition to gliding
 export var horizontal_slew_rate := 1.0
@@ -135,7 +135,11 @@ func _get_configuration_warning():
 		return "Unable to find right ARVR Controller node"
 
 	# Check glide parameters
-	if glide_min_fall_speed >= glide_fall_speed:
+	if glide_min_fall_speed > 0:
+		return "Glide minimum fall speed must be zero or less"
+	if glide_fall_speed > 0:
+		return "Glide fall speed must be zero or less"
+	if glide_min_fall_speed < glide_fall_speed:
 		return "Glide fall speed must be faster than minimum fall speed"
 
 	# Call base class

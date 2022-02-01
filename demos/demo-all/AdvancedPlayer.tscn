@@ -59,6 +59,5 @@ left_pickup = NodePath("../LeftHandController/Function_Pickup")
 right_pickup = NodePath("../RightHandController/Function_Pickup")
 
 [node name="Function_Glide_movement" parent="." index="6" instance=ExtResource( 10 )]
-glide_forward_speed = 12.0
 
 [node name="Function_Wind_movement" parent="." index="7" instance=ExtResource( 9 )]
