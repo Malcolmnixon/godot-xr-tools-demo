@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://demos/common/map-items/up-draft/UpTunnel.tres" type="Material" id=1]
+
+[node name="UpTunnel" type="CSGCylinder"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
+radius = 1.5
+height = 3.0
+sides = 16
+smooth_faces = false
+material = ExtResource( 1 )
+
+[node name="Hole" type="CSGCylinder" parent="."]
+operation = 2
+radius = 1.4
+height = 3.1
+sides = 16
+smooth_faces = false
+material = ExtResource( 1 )
+
+[node name="CSGBox" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 1.1 )
+operation = 2
+width = 1.0
+material = ExtResource( 1 )

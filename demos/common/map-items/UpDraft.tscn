@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://addons/godot-xr-tools/objects/Wind_area.gd" type="Script" id=1]
+[ext_resource path="res://demos/common/map-items/up-draft/UpTunnel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://demos/common/map-items/draft-show/DraftShow.tscn" type="PackedScene" id=3]
+
+[sub_resource type="CylinderShape" id=1]
+radius = 1.4
+height = 8.0
+
+[node name="UpDraft" type="Spatial"]
+
+[node name="UpTunnel" parent="." instance=ExtResource( 2 )]
+
+[node name="Area" type="Area" parent="."]
+collision_layer = 524288
+collision_mask = 0
+script = ExtResource( 1 )
+wind_vector = Vector3( 0, 10, 0 )
+drag = 3.0
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0 )
+shape = SubResource( 1 )
+
+[node name="DraftShow" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+
+[node name="AnimationPlayer" parent="DraftShow" index="1"]
+playback_speed = 10.0
+
+[editable path="DraftShow"]

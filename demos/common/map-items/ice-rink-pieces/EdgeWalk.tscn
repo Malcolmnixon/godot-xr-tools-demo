@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://demos/common/map-items/ice-rink-pieces/IceRinkEdge.tres" type="Material" id=1]
+
+[node name="EdgeWalk" type="CSGPolygon"]
+use_collision = true
+polygon = PoolVector2Array( 0, 0, 0, 0.2, 1, 0.2, 1, 0 )
+depth = 9.0
+material = ExtResource( 1 )

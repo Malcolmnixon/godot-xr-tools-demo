@@ -1,0 +1,64 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://demos/common/map-items/ramp-park-pieces/Ramp75.tscn" type="PackedScene" id=2]
+[ext_resource path="res://demos/common/map-items/ramp-park-pieces/Ramp15.tscn" type="PackedScene" id=3]
+[ext_resource path="res://demos/common/map-items/ramp-park-pieces/Ramp45.tscn" type="PackedScene" id=4]
+[ext_resource path="res://demos/common/map-items/ramp-park-pieces/RampMiddle.tscn" type="PackedScene" id=5]
+[ext_resource path="res://demos/common/map-items/ramp-park-pieces/Ramp30.tscn" type="PackedScene" id=6]
+[ext_resource path="res://demos/common/map-items/ramp-park-pieces/Ramp60.tscn" type="PackedScene" id=7]
+
+[node name="RampPark" type="Spatial"]
+
+[node name="RampBridge15" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4 )
+
+[node name="RampMiddle" parent="RampBridge15" instance=ExtResource( 5 )]
+
+[node name="Ramp15" parent="RampBridge15" instance=ExtResource( 3 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -1 )
+
+[node name="Ramp16" parent="RampBridge15" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0 )
+
+[node name="RampBridge30" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3 )
+
+[node name="RampMiddle" parent="RampBridge30" instance=ExtResource( 5 )]
+
+[node name="Ramp30" parent="RampBridge30" instance=ExtResource( 6 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -1 )
+
+[node name="Ramp31" parent="RampBridge30" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0 )
+
+[node name="RampBridge45" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2 )
+
+[node name="RampMiddle" parent="RampBridge45" instance=ExtResource( 5 )]
+
+[node name="Ramp45" parent="RampBridge45" instance=ExtResource( 4 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -1 )
+
+[node name="Ramp46" parent="RampBridge45" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0 )
+
+[node name="RampBridge60" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
+
+[node name="RampMiddle" parent="RampBridge60" instance=ExtResource( 5 )]
+
+[node name="Ramp60" parent="RampBridge60" instance=ExtResource( 7 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -1 )
+
+[node name="Ramp61" parent="RampBridge60" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0 )
+
+[node name="RampBridge75" type="Spatial" parent="."]
+
+[node name="RampMiddle" parent="RampBridge75" instance=ExtResource( 5 )]
+
+[node name="Ramp75" parent="RampBridge75" instance=ExtResource( 2 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -1 )
+
+[node name="Ramp76" parent="RampBridge75" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 0 )

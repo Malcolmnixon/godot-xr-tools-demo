@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://demos/common/map-items/building-pieces/RampUp.tscn" type="PackedScene" id=1]
+[ext_resource path="res://demos/common/map-items/building-pieces/BuildingCore.tscn" type="PackedScene" id=2]
+
+[node name="Building" type="Spatial"]
+
+[node name="BuildingCore" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -3 )
+
+[node name="RampUp" parent="." instance=ExtResource( 1 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 0, -1.5 )
+
+[node name="RampUp2" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0, 2, -6.5 )
+
+[node name="RampUp3" parent="." instance=ExtResource( 1 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 4, -1.5 )
+
+[node name="RampUp4" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0, 6, -6.5 )

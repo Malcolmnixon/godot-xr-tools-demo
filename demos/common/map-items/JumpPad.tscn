@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://addons/godot-xr-tools/overrides/GroundPhysics.tscn" type="PackedScene" id=1]
+
+[sub_resource type="CylinderShape" id=1]
+height = 0.05
+
+[sub_resource type="CylinderMesh" id=2]
+height = 0.1
+radial_segments = 32
+rings = 1
+
+[sub_resource type="CylinderMesh" id=3]
+height = 0.5
+radial_segments = 32
+rings = 1
+
+[sub_resource type="SpatialMaterial" id=4]
+flags_transparent = true
+flags_unshaded = true
+albedo_color = Color( 0.501961, 0, 0, 0.501961 )
+
+[node name="JumpPad" type="Spatial"]
+
+[node name="Pedistal" type="StaticBody" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Pedistal"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0 )
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Pedistal"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="GroundPhysics" parent="Pedistal" instance=ExtResource( 1 )]
+override_flags = 16
+jump_velocity = 15.0
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )

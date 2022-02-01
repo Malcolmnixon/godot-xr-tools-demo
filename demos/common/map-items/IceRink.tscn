@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://demos/common/map-items/ice-rink-pieces/EdgeRamp.tscn" type="PackedScene" id=1]
+[ext_resource path="res://demos/common/map-items/ice-rink-pieces/EdgeWalk.tscn" type="PackedScene" id=2]
+[ext_resource path="res://demos/common/map-items/ice-rink-pieces/IceArea.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/godot-xr-tools/overrides/GroundPhysics.tscn" type="PackedScene" id=4]
+
+[node name="IceRink" type="Spatial"]
+
+[node name="SmallRamp" parent="." instance=ExtResource( 1 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0 )
+
+[node name="SmallRamp2" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 0 )
+
+[node name="SmallRamp3" parent="." instance=ExtResource( 1 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10, 0, -10 )
+
+[node name="SmallRamp4" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -10 )
+
+[node name="EdgeWalk" parent="." instance=ExtResource( 2 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, -1 )
+
+[node name="EdgeWalk2" parent="." instance=ExtResource( 2 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1, 0, -10 )
+
+[node name="EdgeWalk3" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
+
+[node name="EdgeWalk4" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 0 )
+
+[node name="IceArea" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1 )
+
+[node name="GroundPhysics" parent="IceArea" instance=ExtResource( 4 )]
+override_flags = 19
+move_drag = 0.5
+move_traction = 0.5
+move_max_slope = 5.0
+jump_velocity = 0.0

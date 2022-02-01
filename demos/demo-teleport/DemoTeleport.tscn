@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://demos/demo-teleport/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://demos/common/maps/Park.tscn" type="PackedScene" id=2]
+
+[node name="DemoTeleport" type="Spatial"]
+
+[node name="Park" parent="." instance=ExtResource( 2 )]
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
