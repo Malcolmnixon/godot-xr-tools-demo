@@ -43,16 +43,8 @@ export var order := 20
 ## Button to trigger jump
 export (Buttons) var jump_button_id = Buttons.VR_TRIGGER
 
-## Path to the ARVR Controller
-export (NodePath) var controller = null
-
 # Node references
-var _controller_node: ARVRController = null
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	# Get the controller node
-	_controller_node = get_node(controller) if controller else get_parent()
+onready var _controller: ARVRController = get_parent()
 
 # Perform jump movement
 func physics_movement(delta: float, player_body: PlayerBody):
@@ -61,11 +53,11 @@ func physics_movement(delta: float, player_body: PlayerBody):
 		return
 
 	# Skip if the jump controller isn't active
-	if !_controller_node.get_is_active():
+	if !_controller.get_is_active():
 		return
 
 	# Skip if the jump button isn't pressed
-	if !_controller_node.is_button_pressed(jump_button_id):
+	if !_controller.is_button_pressed(jump_button_id):
 		return
 
 	# Skip if the ground is too steep to jump
@@ -81,8 +73,8 @@ func physics_movement(delta: float, player_body: PlayerBody):
 # This method verifies the MovementProvider has a valid configuration.
 func _get_configuration_warning():
 	# Check the controller node
-	var test_controller_node = get_node_or_null(controller) if controller else get_parent()
-	if !test_controller_node or !test_controller_node is ARVRController:
+	var test_controller = get_parent()
+	if !test_controller or !test_controller is ARVRController:
 		return "Unable to find ARVR Controller node"
 
 	# Call base class

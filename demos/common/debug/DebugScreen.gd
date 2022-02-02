@@ -2,23 +2,26 @@ extends Spatial
 
 export var player_body: NodePath
 
-onready var player_body_node: PlayerBody = _get_player_body()
+var _player_body_node: PlayerBody = null
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	var position = player_body_node.kinematic_node.global_transform.origin
+func _process(_delta):
+	if !_player_body_node:
+		_player_body_node = _get_player_body()
+		
+	var position = _player_body_node.kinematic_node.global_transform.origin
 	$Sprite3D/Viewport/GridContainer/Position.text = str(position)
 	
-	var velocity = player_body_node.velocity.length()
+	var velocity = _player_body_node.velocity.length()
 	$Sprite3D/Viewport/GridContainer/Velocity.text = str(velocity)
 
-	var ground = player_body_node.ground_node
+	var ground = _player_body_node.ground_node
 	$Sprite3D/Viewport/GridContainer/Ground.text = str(ground)
 
-	var slope = player_body_node.ground_angle
+	var slope = _player_body_node.ground_angle
 	$Sprite3D/Viewport/GridContainer/Slope.text = str(slope)
 
-	var physics = player_body_node.ground_physics
+	var physics = _player_body_node.ground_physics
 	if physics and !physics.resource_name.empty():
 		$Sprite3D/Viewport/GridContainer/Physics.text = physics.resource_name
 	else:
@@ -50,8 +53,8 @@ func _get_player_body() -> PlayerBody:
 		return null
 
 	# get our player node
-	var player_body = arvr_origin.get_node("PlayerBody")
-	if player_body and player_body is PlayerBody:
-		return player_body
+	var body = arvr_origin.get_node("PlayerBody")
+	if body and body is PlayerBody:
+		return body
 
 	return null

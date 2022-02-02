@@ -285,7 +285,7 @@ func _apply_velocity_and_control(delta: float):
 			var current_max_slope := GroundPhysicsSettings.get_move_max_slope(ground_physics, default_physics)	
 			if ground_angle > current_max_slope:
 				# Get a vector in the down-hill direction
-				var down_direction := ground_vector * horizontal
+				var down_direction := (ground_vector * horizontal).normalized()
 				var vdot = down_direction.dot(horizontal_velocity)
 				if vdot < 0:
 					horizontal_velocity -= down_direction * vdot

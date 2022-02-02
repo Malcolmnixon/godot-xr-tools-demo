@@ -77,24 +77,16 @@ export (Buttons) var fly_move_button_id = Buttons.VR_TRIGGER
 ## Flight activate button
 export (Buttons) var fly_activate_button_id = Buttons.VR_GRIP
 
-## Optional path to the ARVR Controller
-export (NodePath) var controller = null
-
 # Turn step accumulator
 var _turn_step := 0.0
 
 # Controller node
-var _controller_node : ARVRController = null
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	# Get the controller node
-	_controller_node = get_node(controller) if controller else get_parent()
+onready var _controller : ARVRController = get_parent()
 
 # Perform jump movement
 func physics_movement(delta: float, player_body: PlayerBody):
 	# Skip if the controller isn't active
-	if !_controller_node.get_is_active():
+	if !_controller.get_is_active():
 		return
 
 	# Handle rotation
@@ -102,11 +94,11 @@ func physics_movement(delta: float, player_body: PlayerBody):
 		_perform_player_rotation(delta, player_body)
 
 	# Detect flying
-	if canFly and _controller_node.is_button_pressed(fly_activate_button_id):
-		if _controller_node.is_button_pressed(fly_move_button_id):
+	if canFly and _controller.is_button_pressed(fly_activate_button_id):
+		if _controller.is_button_pressed(fly_move_button_id):
 			# Use the controller's transform to move the VR capsule follow its orientation
 			var curr_transform := player_body.kinematic_node.global_transform
-			var fly_velocity := -_controller_node.global_transform.basis.z.normalized() * max_speed * ARVRServer.world_scale
+			var fly_velocity := -_controller.global_transform.basis.z.normalized() * max_speed * ARVRServer.world_scale
 			player_body.velocity = player_body.move_and_slide(fly_velocity)
 		else:
 			player_body.velocity = Vector3.ZERO
@@ -115,11 +107,11 @@ func physics_movement(delta: float, player_body: PlayerBody):
 		return true
 
 	# Apply forwards/backwards ground control
-	player_body.ground_control_velocity.y += _controller_node.get_joystick_axis(1) * max_speed
+	player_body.ground_control_velocity.y += _controller.get_joystick_axis(1) * max_speed
 
 	# Apply left/right ground control
 	if move_type == MOVEMENT_TYPE.MOVE_AND_STRAFE:
-		player_body.ground_control_velocity.x += _controller_node.get_joystick_axis(0) * max_speed
+		player_body.ground_control_velocity.x += _controller.get_joystick_axis(0) * max_speed
 
 	# Clamp ground control
 	player_body.ground_control_velocity.x = clamp(player_body.ground_control_velocity.x, -max_speed, max_speed)
@@ -127,7 +119,7 @@ func physics_movement(delta: float, player_body: PlayerBody):
 
 # Perform rotation based on the players rotation controller input
 func _perform_player_rotation(delta: float, player_body: PlayerBody):
-	var left_right := _controller_node.get_joystick_axis(0)
+	var left_right := _controller.get_joystick_axis(0)
 	
 	if abs(left_right) <= 0.1:
 		# Not turning
@@ -170,8 +162,8 @@ func _rotate_player(player_body: PlayerBody, angle: float):
 # This method verifies the MovementProvider has a valid configuration.
 func _get_configuration_warning():
 	# Check the controller node
-	var test_controller_node = get_node(controller) if controller else get_parent()
-	if !test_controller_node or !test_controller_node is ARVRController:
+	var test_controller = get_parent()
+	if !test_controller or !test_controller is ARVRController:
 		return "Unable to find ARVR Controller node"
 
 	# Call base class

@@ -16,9 +16,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03, -0.05, 0.15 )
 
 [node name="Function_Teleport" parent="LeftHandController" index="1" instance=ExtResource( 3 )]
 max_slope = 35.0
+camera = NodePath("../../ARVRCamera")
 
 [node name="RightHand" parent="RightHandController" index="0" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03, -0.05, 0.15 )
 
 [node name="Function_Teleport" parent="RightHandController" index="1" instance=ExtResource( 3 )]
 max_slope = 35.0
+camera = NodePath("../../ARVRCamera")
