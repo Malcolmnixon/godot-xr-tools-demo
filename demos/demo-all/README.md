@@ -11,8 +11,6 @@ The following are the steps to create the player:
  - Add the right hand model:
    - Add godot-xr-tools/assets/RightHand.tscn under RightHandController
    - Change RightHand translation to [0.03, -0.05, 0.15]
- - Add the player physics body:
-   - Add godot-xr-hands/assets/PlayerBody.tscn under the player root ARVROrigin node
  - Add pickup support to the left and right hands:
    - Add godot-xr-tools/functions/Function_Pickup.tscn under LeftHandController and RightHandController
  - Add move/strafe support to the left hand:

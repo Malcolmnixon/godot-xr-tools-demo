@@ -2,7 +2,7 @@ extends Spatial
 
 export var player_body: NodePath
 
-onready var player_body_node: PlayerBody = get_node(player_body)
+onready var player_body_node: PlayerBody = _get_player_body()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -19,4 +19,39 @@ func _process(delta):
 	$Sprite3D/Viewport/GridContainer/Slope.text = str(slope)
 
 	var physics = player_body_node.ground_physics
-	$Sprite3D/Viewport/GridContainer/Physics.text = str(physics)
+	if physics and !physics.resource_name.empty():
+		$Sprite3D/Viewport/GridContainer/Physics.text = physics.resource_name
+	else:
+		$Sprite3D/Viewport/GridContainer/Physics.text = str(physics)
+
+# Get our origin node, we should be in a branch of this
+func _get_arvr_origin() -> ARVROrigin:
+	var parent = get_parent()
+	while parent:
+		if parent is ARVROrigin:
+			return parent
+		parent = parent.get_parent()
+	
+	return null
+	
+# Get our player body, this should be a node on our ARVROrigin node.
+func _get_player_body() -> PlayerBody:
+	# check if our property is set
+	if player_body:
+		return get_node(player_body) as PlayerBody
+
+	# get our origin node
+	var arvr_origin = _get_arvr_origin()
+	if !arvr_origin:
+		return null
+
+	# checking if the node exists before fetching it prevents error spam
+	if !arvr_origin.has_node("PlayerBody"):
+		return null
+
+	# get our player node
+	var player_body = arvr_origin.get_node("PlayerBody")
+	if player_body and player_body is PlayerBody:
+		return player_body
+
+	return null

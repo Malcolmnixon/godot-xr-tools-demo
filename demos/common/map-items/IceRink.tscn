@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://demos/common/map-items/ice-rink-pieces/EdgeRamp.tscn" type="PackedScene" id=1]
 [ext_resource path="res://demos/common/map-items/ice-rink-pieces/EdgeWalk.tscn" type="PackedScene" id=2]
 [ext_resource path="res://demos/common/map-items/ice-rink-pieces/IceArea.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/godot-xr-tools/overrides/GroundPhysics.tscn" type="PackedScene" id=4]
+[ext_resource path="res://demos/common/map-items/ice-rink-pieces/IcePhysics.tres" type="Resource" id=5]
 
 [node name="IceRink" type="Spatial"]
 
@@ -35,8 +36,4 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 0 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1 )
 
 [node name="GroundPhysics" parent="IceArea" instance=ExtResource( 4 )]
-override_flags = 19
-move_drag = 0.5
-move_traction = 0.5
-move_max_slope = 5.0
-jump_velocity = 0.0
+physics = ExtResource( 5 )

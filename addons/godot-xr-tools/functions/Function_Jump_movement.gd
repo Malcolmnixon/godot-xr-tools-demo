@@ -43,12 +43,6 @@ export var order := 20
 ## Button to trigger jump
 export (Buttons) var jump_button_id = Buttons.VR_TRIGGER
 
-## Maximum slope that can be jumped on
-export (float, 0.0, 85.0) var max_slope := 45.0
-
-## Jump vertical velocity
-export var jump_velocity := 3.0
-
 ## Path to the ARVR Controller
 export (NodePath) var controller = null
 
@@ -75,13 +69,13 @@ func physics_movement(delta: float, player_body: PlayerBody):
 		return
 
 	# Skip if the ground is too steep to jump
-	var current_max_slope := GroundPhysics.get_jump_max_slope(player_body.ground_physics, max_slope)
+	var current_max_slope := GroundPhysicsSettings.get_jump_max_slope(player_body.ground_physics, player_body.default_physics)
 	if player_body.ground_angle > current_max_slope:
 		return
 
 	# Perform the jump
 	emit_signal("player_jumped")
-	var current_jump_velocity := GroundPhysics.get_jump_velocity(player_body.ground_physics, jump_velocity)
+	var current_jump_velocity := GroundPhysicsSettings.get_jump_velocity(player_body.ground_physics, player_body.default_physics)
 	player_body.velocity.y = current_jump_velocity * ARVRServer.world_scale
 
 # This method verifies the MovementProvider has a valid configuration.

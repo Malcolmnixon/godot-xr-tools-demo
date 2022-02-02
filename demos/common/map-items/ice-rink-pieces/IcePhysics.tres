@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://addons/godot-xr-tools/overrides/GroundPhysicsSettings.gd" type="Script" id=1]
+
+[resource]
+resource_name = "IcePhysics"
+script = ExtResource( 1 )
+flags = 3
+move_drag = 0.1
+move_traction = 0.1
+move_max_slope = 45.0
+jump_max_slope = 45.0
+jump_velocity = 0.0

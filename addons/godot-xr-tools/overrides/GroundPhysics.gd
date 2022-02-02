@@ -1,3 +1,4 @@
+tool
 class_name GroundPhysics
 extends Node
 
@@ -15,70 +16,18 @@ extends Node
 ##     enable the appropriate flags and provide new values.
 ##
 
+## GroundPhysicsSettings to apply - can only be typed in Godot 4+
+export (Resource) var physics
 
-## Enumeration flags for which ground physics properties are enabled
-enum GroundPhysicsFlags {
-	MOVE_DRAG = 1,
-	MOVE_TRACTION = 2,
-	MOVE_MAX_SLOPE = 4,
-	JUMP_MAX_SLOP = 8,
-	JUMP_VELOCITY = 16
-}
+# This method verifies the MovementProvider has a valid configuration.
+func _get_configuration_warning():
+	# Verify physics specified
+	if !physics:
+		return "Physics must be specified"
 
-## Flags defining which ground velocities are enabled
-export (int, FLAGS, "Move Drag", "Move Traction", "Move Max Slope", "Jump Max Slope", "Jump Velocity") var override_flags := 0
+	# Verify physics is of the correct type
+	if !physics is GroundPhysicsSettings:
+		return "Physics must be a GroundPhysicsSettings"
 
-## Movement drag factor
-export var move_drag := 5.0
-
-## Movement traction factor
-export var move_traction := 30.0
-
-## Movement maximum slope
-export (float, 0.0, 85.0) var move_max_slope := 45.0
-
-## Jump maximum slope
-export (float, 0.0, 85.0) var jump_max_slope := 45.0
-
-## Jump velocity
-export var jump_velocity := 3.0
-
-static func get_move_drag(override: GroundPhysics, default: float) -> float:
-	if !override:
-		return default
-	elif override.override_flags & GroundPhysicsFlags.MOVE_DRAG:
-		return override.move_drag
-	else:
-		return default
-
-static func get_move_traction(override: GroundPhysics, default: float) -> float:
-	if !override:
-		return default
-	elif override.override_flags & GroundPhysicsFlags.MOVE_TRACTION:
-		return override.move_traction
-	else:
-		return default
-
-static func get_move_max_slope(override: GroundPhysics, default: float) -> float:
-	if !override:
-		return default
-	elif override.override_flags & GroundPhysicsFlags.MOVE_MAX_SLOPE:
-		return override.move_max_slope
-	else:
-		return default
-
-static func get_jump_max_slope(override: GroundPhysics, default: float) -> float:
-	if !override:
-		return default
-	elif override.override_flags & GroundPhysicsFlags.JUMP_MAX_SLOP:
-		return override.jump_max_slope
-	else:
-		return default
-
-static func get_jump_velocity(override: GroundPhysics, default: float) -> float:
-	if !override:
-		return default
-	elif override.override_flags & GroundPhysicsFlags.JUMP_VELOCITY:
-		return override.jump_velocity
-	else:
-		return default
+	# Report valid
+	return ""

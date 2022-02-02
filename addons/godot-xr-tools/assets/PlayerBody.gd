@@ -29,20 +29,14 @@ export var player_radius := 0.4
 ## Eyes forward offset from center of body in player_radius units
 export (float, 0.0, 1.0) var eye_forward_offset := 0.66
 
-## Movement drag factor - may be overridden using GroundPhysicsOverride
-export var move_drag := 5.0
-
-## Movement traction factor - may be overridden using GroundPhysicsOverride
-export var move_traction := 30.0
-
-## Movement maximum slope - may be overridden using GroundPhysicsOverride
-export (float, 0.0, 85.0) var move_max_slope := 45.0
-
 ## Force of gravity on the player
 export var gravity := -9.8
 
 ## Lets the player push rigid bodies
 export var push_rigid_bodies := true
+
+## GroundPhysicsSettings to apply - can only be typed in Godot 4+
+export (Resource) var physics = null setget set_physics, get_physics
 
 ## Path to the ARVROrigin node
 export (NodePath) var origin = null
@@ -58,6 +52,9 @@ var camera_node: ARVRCamera = null
 
 ## Player KinematicBody node
 onready var kinematic_node: KinematicBody = $KinematicBody
+
+# Default physics (if not specified by the user or the current ground)
+onready var default_physics = _guaranteed_physics()
 
 ## Player Velocity - modifiable by MovementProvider nodes
 var velocity := Vector3.ZERO
@@ -75,7 +72,7 @@ var ground_angle := 0.0
 var ground_node: Node = null
 
 ## Ground physics override (if present)
-var ground_physics: GroundPhysics = null
+var ground_physics: GroundPhysicsSettings = null
 
 ## Ground control velocity - modified by MovementProvider nodes
 var ground_control_velocity := Vector2.ZERO
@@ -94,11 +91,43 @@ class SortProviderByOrder:
 	static func sort_by_order(a, b) -> bool:
 		return true if a.order < b.order else false
 
+# Get our origin node, make sure we have consistent code here
+func _get_origin_node() -> ARVROrigin:
+	var node : ARVROrigin = get_node_or_null(origin) if origin else get_parent()
+	return node
+
+# Get our camera node
+func _get_camera_node() -> ARVRCamera:
+	# if we have set a node, try and use it
+	var node : ARVRCamera
+	
+	if camera:
+		node = get_node_or_null(camera)
+		if node:
+			return node
+
+	var o : ARVROrigin = _get_origin_node()
+	if !o:
+		return null
+
+	# else get by default name 
+	node = o.get_node_or_null("ARVRCamera")
+	if node:
+		return node
+
+	# else find the first camera child
+	for child in o.get_children():
+		if child is ARVRCamera:
+			return child
+
+	# no luck
+	return null
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Get the origin and camera nodes
-	origin_node = get_node(origin) if origin else get_parent()
-	camera_node = get_node(camera) if camera else origin_node.get_node("ARVRCamera")
+	origin_node = _get_origin_node()
+	camera_node = _get_camera_node()
 
 	# Get the movement providers ordered by increasing order
 	_movement_providers = get_tree().get_nodes_in_group("movement_providers")
@@ -117,6 +146,14 @@ func set_enabled(new_value):
 
 func get_enabled():
 	return enabled
+
+func set_physics(new_value: Resource):
+	# Save the property
+	physics = new_value
+	default_physics = _guaranteed_physics()
+
+func get_physics() -> Resource:
+	return physics
 
 func _physics_process(delta):
 	# Do not run physics if in the editor
@@ -206,7 +243,13 @@ func _update_ground_information():
 		ground_vector = ground_collision.normal
 		ground_angle = rad2deg(ground_collision.get_angle())
 		ground_node = ground_collision.collider
-		ground_physics = ground_node.get_node_or_null("GroundPhysics") as GroundPhysics
+		
+		# Select the ground physics
+		var physics_node := ground_node.get_node_or_null("GroundPhysics") as GroundPhysics
+		if physics_node:
+			ground_physics = physics_node.physics
+		else:
+			ground_physics = default_physics
 
 		# Detect if we're sliding on a wall
 		# TODO: consider reworking this magic angle
@@ -222,7 +265,7 @@ func _apply_velocity_and_control(delta: float):
 	# If the player is on the ground then give them control
 	if on_ground:
 		# Apply the ground drag
-		var current_drag := GroundPhysics.get_move_drag(ground_physics, move_drag)
+		var current_drag := GroundPhysicsSettings.get_move_drag(ground_physics, default_physics)
 		horizontal_velocity *= 1.0 - current_drag * delta
 
 		# If ground control is being supplied then update the horizontal velocity
@@ -234,12 +277,12 @@ func _apply_velocity_and_control(delta: float):
 			control_velocity = (dir_forward * -ground_control_velocity.y + dir_right * ground_control_velocity.x) * ARVRServer.world_scale
 
 			# Apply control velocity to horizontal velocity based on traction
-			var current_traction := GroundPhysics.get_move_traction(ground_physics, move_traction)
+			var current_traction := GroundPhysicsSettings.get_move_traction(ground_physics, default_physics)
 			var traction_factor = clamp(current_traction * delta, 0.0, 1.0)
 			horizontal_velocity = lerp(horizontal_velocity, control_velocity, traction_factor)
 
 			# Prevent the player from moving up steep slopes
-			var current_max_slope := GroundPhysics.get_move_max_slope(ground_physics, move_max_slope)	
+			var current_max_slope := GroundPhysicsSettings.get_move_max_slope(ground_physics, default_physics)	
 			if ground_angle > current_max_slope:
 				# Get a vector in the down-hill direction
 				var down_direction := ground_vector * horizontal
@@ -247,14 +290,22 @@ func _apply_velocity_and_control(delta: float):
 				if vdot < 0:
 					horizontal_velocity -= down_direction * vdot
 
-	# Apply the horizontal and vertical velocities to the player body
-	horizontal_velocity = move_and_slide(horizontal_velocity)
-	vertical_velocity = move_and_slide(vertical_velocity)
+	# Combine the velocities back to a 3-space velocity
+	velocity = horizontal_velocity + vertical_velocity
 
-	# Update the players velocity
-	velocity.x = horizontal_velocity.x
-	velocity.y = vertical_velocity.y
-	velocity.z = horizontal_velocity.z
+	# Move the player body with the desired velocity
+	velocity = move_and_slide(velocity)
+
+# Get a guaranteed-valid physics
+func _guaranteed_physics():
+	# Ensure we have a guaranteed-valid GroundPhysicsSettings value
+	var valid_physics := physics as GroundPhysicsSettings
+	if !valid_physics:
+		valid_physics = GroundPhysicsSettings.new()
+		valid_physics.resource_name = "default"
+
+	# Return the guaranteed-valid physics
+	return valid_physics
 
 # This method verifies the PlayerBody has a valid configuration. Specifically it
 # checks the following:
@@ -264,12 +315,12 @@ func _apply_velocity_and_control(delta: float):
 # - Maximum slope is valid
 func _get_configuration_warning():
 	# Check the origin node
-	var test_origin_node = get_node_or_null(origin) if origin else get_parent()
+	var test_origin_node = _get_origin_node()
 	if !test_origin_node or !test_origin_node is ARVROrigin:
 		return "Unable to find ARVR Origin node"
 
 	# Check the camera node
-	var test_camera_node = get_node_or_null(camera) if camera else test_origin_node.get_node("ARVRCamera")
+	var test_camera_node = _get_camera_node()
 	if !test_camera_node or !test_camera_node is ARVRCamera:
 		return "Unable to find ARVR Camera node"
 
@@ -281,6 +332,10 @@ func _get_configuration_warning():
 	var eyes_to_collider = (1.0 - eye_forward_offset) * player_radius
 	if eyes_to_collider < test_camera_node.near:
 		return "Eyes too far forwards. Move eyes back or decrease camera near clipping plane"
+
+	# If specified, verify the ground physics is a valid type
+	if physics and !physics is GroundPhysicsSettings:
+		return "Physics resource must be a GroundPhysicsSetting"
 
 	# Passed basic validation
 	return ""
