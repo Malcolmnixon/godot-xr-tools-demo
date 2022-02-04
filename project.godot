@@ -64,6 +64,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot-xr-tools/assets/PlayerBody.gd"
 }, {
+"base": "CanvasLayer",
+"class": "VirtualKeyboard2D",
+"language": "GDScript",
+"path": "res://addons/godot-xr-tools/objects/keyboard/VirtualKeyboard_2D.gd"
+}, {
 "base": "Area",
 "class": "WindArea",
 "language": "GDScript",
@@ -96,6 +101,7 @@ _global_script_class_icons={
 "MovementProvider": "",
 "Object_climbable": "",
 "PlayerBody": "",
+"VirtualKeyboard2D": "",
 "WindArea": "",
 "XRToolsInteractableArea": "",
 "XRToolsInteractableBody": "",
@@ -105,7 +111,7 @@ _global_script_class_icons={
 [application]
 
 config/name="godot-xr-tools-demos"
-run/main_scene="res://demos/demo-all/DemoAll.tscn"
+run/main_scene="res://demos/demo-keyboard/DemoKeyboard.tscn"
 config/icon="res://icon.png"
 
 [gdnative]

@@ -1,0 +1,52 @@
+[gd_scene format=2]
+
+[node name="Welcome2D" type="CanvasLayer"]
+
+[node name="Background" type="ColorRect" parent="."]
+margin_right = 300.0
+margin_bottom = 150.0
+color = Color( 0.12549, 0.12549, 0.12549, 0.501961 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Background"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 290.0
+margin_bottom = 32.0
+text = "Virtual Keyboard Demo"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineEdit1" type="LineEdit" parent="Background"]
+margin_left = 10.0
+margin_top = 45.0
+margin_right = 290.0
+margin_bottom = 70.0
+text = "..."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineEdit2" type="LineEdit" parent="Background"]
+margin_left = 10.0
+margin_top = 80.0
+margin_right = 290.0
+margin_bottom = 105.0
+text = "..."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineEdit3" type="LineEdit" parent="Background"]
+margin_left = 10.0
+margin_top = 115.0
+margin_right = 290.0
+margin_bottom = 140.0
+text = "..."
+__meta__ = {
+"_edit_use_anchors_": false
+}
