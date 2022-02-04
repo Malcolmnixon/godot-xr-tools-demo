@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://addons/godot-xr-tools/assets/PlayerBody.tscn" type="PackedScene" id=1]
+[ext_resource path="res://demos/common/maps/Park.tscn" type="PackedScene" id=2]
+[ext_resource path="res://demos/demo-vignette/PlayerWithVignette.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/godot-xr-tools/assets/PlayerBody.gd" type="Script" id=4]
+
+[node name="DemoVignette" type="Spatial"]
+
+[node name="Park" parent="." instance=ExtResource( 2 )]
+
+[node name="PlayerWithVignette" parent="." instance=ExtResource( 3 )]
+
+[node name="PlayerBody" type="Node" parent="PlayerWithVignette" instance=ExtResource( 1 )]
+script = ExtResource( 4 )
+origin = null
+camera = null
