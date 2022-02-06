@@ -111,7 +111,7 @@ _global_script_class_icons={
 [application]
 
 config/name="godot-xr-tools-demos"
-run/main_scene="res://demos/demo-keyboard/DemoKeyboard.tscn"
+run/main_scene="res://demos/demo-all/DemoAll.tscn"
 config/icon="res://icon.png"
 
 [gdnative]
