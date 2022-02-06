@@ -1,13 +1,11 @@
 extends Spatial
 
-export var player_body: NodePath
-
 var _player_body_node: PlayerBody = null
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if !_player_body_node:
-		_player_body_node = _get_player_body()
+		_player_body_node = PlayerBody.get_player_body(self)
 		
 	var position = _player_body_node.kinematic_node.global_transform.origin
 	$Sprite3D/Viewport/GridContainer/Position.text = str(position)
@@ -26,35 +24,3 @@ func _process(_delta):
 		$Sprite3D/Viewport/GridContainer/Physics.text = physics.resource_name
 	else:
 		$Sprite3D/Viewport/GridContainer/Physics.text = str(physics)
-
-# Get our origin node, we should be in a branch of this
-func _get_arvr_origin() -> ARVROrigin:
-	var parent = get_parent()
-	while parent:
-		if parent is ARVROrigin:
-			return parent
-		parent = parent.get_parent()
-	
-	return null
-	
-# Get our player body, this should be a node on our ARVROrigin node.
-func _get_player_body() -> PlayerBody:
-	# check if our property is set
-	if player_body:
-		return get_node(player_body) as PlayerBody
-
-	# get our origin node
-	var arvr_origin = _get_arvr_origin()
-	if !arvr_origin:
-		return null
-
-	# checking if the node exists before fetching it prevents error spam
-	if !arvr_origin.has_node("PlayerBody"):
-		return null
-
-	# get our player node
-	var body = arvr_origin.get_node("PlayerBody")
-	if body and body is PlayerBody:
-		return body
-
-	return null

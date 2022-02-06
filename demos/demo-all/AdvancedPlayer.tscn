@@ -76,6 +76,8 @@ target = NodePath("../../PlayerBody/KinematicBody")
 offset = Vector3( 0, 0.6, 0 )
 
 [node name="PlayerBody" parent="." index="4" instance=ExtResource( 12 )]
+origin = NodePath("")
+camera = NodePath("")
 
 [node name="MeshInstance" type="MeshInstance" parent="PlayerBody/KinematicBody" index="1"]
 mesh = SubResource( 1 )
@@ -86,6 +88,8 @@ left_pickup = NodePath("../LeftHandController/Function_Pickup")
 right_pickup = NodePath("../RightHandController/Function_Pickup")
 
 [node name="Function_Glide_movement" parent="." index="6" instance=ExtResource( 10 )]
+left_controller = NodePath("")
+right_controller = NodePath("")
 
 [node name="Function_Wind_movement" parent="." index="7" instance=ExtResource( 9 )]
 
