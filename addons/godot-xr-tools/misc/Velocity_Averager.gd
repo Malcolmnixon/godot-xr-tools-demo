@@ -25,7 +25,7 @@ var _time_deltas := Array()
 # Array of linear distances (in Vector3)
 var _linear_distances := Array()
 
-# Array of angular distances (in Vector3 euler)
+# Array of angular distances (in Quat)
 var _angular_distances := Array()
 
 # Last transform
@@ -47,7 +47,7 @@ func clear():
 	_has_last_transform = false
 
 ## Add linear and angular distances to the averager
-func add_distance(var delta: float, var linear_distance: Vector3, var angular_distance: Vector3):
+func add_distance(var delta: float, var linear_distance: Vector3, var angular_distance: Quat):
 	# Add data averaging arrays
 	_time_deltas.push_back(delta)
 	_linear_distances.push_back(linear_distance)
@@ -59,10 +59,6 @@ func add_distance(var delta: float, var linear_distance: Vector3, var angular_di
 		_linear_distances.pop_front()
 		_angular_distances.pop_front()
 
-## Add linear and angular velocities to the averager
-func add_velocity(var delta: float, var linear_velocity: Vector3, var angular_velocity: Vector3):
-	add_distance(delta, linear_velocity * delta, angular_velocity * delta)
-
 ## Add a transform to the averager
 func add_transform(var delta: float, var transform: Transform):
 	# Handle saving the first transform
@@ -73,7 +69,7 @@ func add_transform(var delta: float, var transform: Transform):
 
 	# Calculate the linear and angular distances
 	var linear_distance := transform.origin - _last_transform.origin
-	var angular_distance := (transform.basis * _last_transform.basis.inverse()).get_euler()
+	var angular_distance := (transform.basis * _last_transform.basis.inverse()).get_rotation_quat()
 	
 	# Update the last transform
 	_last_transform = transform
@@ -112,9 +108,9 @@ func angular_velocity() -> Vector3:
 		return Vector3.ZERO
 
 	# Calculate the total angular distance
-	var total_angular := Vector3.ZERO
+	var total_angular := Quat.IDENTITY
 	for dd in _angular_distances:
-		total_angular += dd
+		total_angular *= dd
 
 	# Calculate the average
-	return total_angular / total_time
+	return total_angular.get_euler() / total_time
