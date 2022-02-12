@@ -8,7 +8,6 @@ class_name VelocityAverager
 ##     This class assists in calculating the velocity (both linear and angular)
 ##     of an object. It accepts the following types of input:
 ##      - Periodic distances
-##      - Periodic velocities
 ##      - Periodic transforms (for the origin position)
 ##
 ##     It provides the average velocity calculated from the total distance 
@@ -22,10 +21,10 @@ var _count: int
 # Array of time deltas (in float seconds) 
 var _time_deltas := Array()
 
-# Array of linear distances (in Vector3)
+# Array of linear distances (Vector3 Castesian Distances)
 var _linear_distances := Array()
 
-# Array of angular distances (in Quat)
+# Array of angular distances (Vector3 Euler Distances)
 var _angular_distances := Array()
 
 # Last transform
@@ -47,7 +46,10 @@ func clear():
 	_has_last_transform = false
 
 ## Add linear and angular distances to the averager
-func add_distance(var delta: float, var linear_distance: Vector3, var angular_distance: Quat):
+func add_distance(var delta: float, var linear_distance: Vector3, var angular_distance: Vector3):
+	# Sanity check
+	assert(delta > 0, "Velocity averager requires positive time-deltas")
+	
 	# Add data averaging arrays
 	_time_deltas.push_back(delta)
 	_linear_distances.push_back(linear_distance)
@@ -67,9 +69,11 @@ func add_transform(var delta: float, var transform: Transform):
 		_has_last_transform = true
 		return
 
-	# Calculate the linear and angular distances
+	# Calculate the linear cartesian distance
 	var linear_distance := transform.origin - _last_transform.origin
-	var angular_distance := (transform.basis * _last_transform.basis.inverse()).get_rotation_quat()
+	
+	# Calculate the euler angular distance
+	var angular_distance := (transform.basis * _last_transform.basis.inverse()).get_euler()
 	
 	# Update the last transform
 	_last_transform = transform
@@ -79,38 +83,51 @@ func add_transform(var delta: float, var transform: Transform):
 
 ## Calculate the average linear velocity
 func linear_velocity() -> Vector3:
-	# Calculate the total time
+	# Skip if no averages
+	if _time_deltas.size() == 0:
+		return Vector3.ZERO
+
+	# Calculate the total time in the average window
 	var total_time := 0.0
 	for dt in _time_deltas:
 		total_time += dt
 
-	# Safety check to prevent division by zero
-	if total_time <= 0.0:
-		return Vector3.ZERO
-
-	# Calculate the total distance
+	# Sum the cartesian distances in the average window
 	var total_linear := Vector3.ZERO
 	for dd in _linear_distances:
 		total_linear += dd
 
-	# Return the average
+	# Return the average cartesian-velocity
 	return total_linear / total_time
 
-## Calculate the average angular velocity as a Vector3 euler
+## Calculate the average angular velocity as a Vector3 euler-velocity
 func angular_velocity() -> Vector3:
-	# Calculate the total time
+	# Skip if no averages
+	if _time_deltas.size() == 0:
+		return Vector3.ZERO
+
+	# Calculate the total time in the average window
 	var total_time := 0.0
 	for dt in _time_deltas:
 		total_time += dt
 
-	# Safety check to prevent division by zero
-	if total_time <= 0.0:
-		return Vector3.ZERO
+	# At first glance the following operations may look incorrect as they appear
+	# to involve scaling of euler angles which isn't a valid operation.
+	#
+	# They are actually correct due to the value being a euler-velocity rather
+	# than a euler-angle. The difference is that physics engines process euler 
+	# velocities by converting them to axis-angle form by:
+	# - Angle-velocity: euler-velocity vector magnitude
+	# - Axis: euler-velocity normalized and axis evaluated on 1-radian rotation
+	#
+	# The result of this interpretation is that scaling the euler-velocity
+	# by arbitrary amounts only results in the angle-velocity changing without
+	# impacting the axis of rotation.
 
-	# Calculate the total angular distance
-	var total_angular := Quat.IDENTITY
+	# Sum the euler-velocities in the average window
+	var total_angular := Vector3.ZERO
 	for dd in _angular_distances:
-		total_angular *= dd
+		total_angular += dd
 
-	# Calculate the average
-	return total_angular.get_euler() / total_time
+	# Calculate the average euler-velocity
+	return total_angular / total_time

@@ -81,6 +81,7 @@ func drop_object():
 			_velocity_averager.linear_velocity() * impulse_factor,
 			_velocity_averager.angular_velocity())
 		picked_up_object = null
+		_velocity_averager.clear()
 		emit_signal("has_dropped")
 
 func _pick_up_object(p_object):
@@ -121,5 +122,8 @@ func _ready():
 	set_pickup_range(pickup_range)
 
 func _process(delta):
-	_velocity_averager.add_transform(delta, global_transform)
+	# Calculate velocity averaging on any picked up object
+	if picked_up_object:
+		_velocity_averager.add_transform(delta, picked_up_object.global_transform)
+
 	_update_closest_object()

@@ -1,14 +1,20 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://demos/common/maps/Park.tscn" type="PackedScene" id=1]
 [ext_resource path="res://demos/demo-all/AdvancedPlayer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/godot-xr-tools/objects/Object_pickable.gd" type="Script" id=3]
+[ext_resource path="res://addons/wahooney.itch.io/white_grid.png" type="Texture" id=4]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.2, 0.2, 0.2 )
+extents = Vector3( 0.05, 0.05, 0.5 )
 
 [sub_resource type="CubeMesh" id=2]
-size = Vector3( 0.4, 0.4, 0.4 )
+size = Vector3( 0.1, 0.1, 1 )
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.501961, 0.752941, 1, 1 )
+albedo_texture = ExtResource( 4 )
+uv1_triplanar = true
 
 [node name="DemoAll" type="Spatial"]
 
@@ -29,4 +35,4 @@ shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="RigidBody"]
 mesh = SubResource( 2 )
-material/0 = null
+material/0 = SubResource( 3 )

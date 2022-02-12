@@ -132,9 +132,17 @@ config/name="godot-xr-tools-demos"
 run/main_scene="res://demos/demo-all/DemoAll.tscn"
 config/icon="res://icon.png"
 
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/godot-openxr/plugin.cfg" )
+
 [gdnative]
 
 singletons=[ "res://addons/godot-openxr/config/godot_openxr.gdnlib" ]
+
+[network]
+
+limits/debugger_stdout/max_chars_per_second=16384
 
 [physics]
 
@@ -142,4 +150,5 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+vram_compression/import_etc=true
 environment/default_environment="res://default_env.tres"
