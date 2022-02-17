@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/379234__tix99__skiffy1.mp3-7c909fa484a1d5a78cee78567a2e3551.mp3str"
+
+[deps]
+
+source_file="res://addons/freesound.org/379234__tix99__skiffy1.mp3"
+dest_files=[ "res://.import/379234__tix99__skiffy1.mp3-7c909fa484a1d5a78cee78567a2e3551.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

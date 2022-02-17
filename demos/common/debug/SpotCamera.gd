@@ -23,10 +23,10 @@ enum Buttons {
 export (Buttons) var place_button_id = Buttons.VR_TRIGGER
 
 ## Camera target
-export (NodePath) var target = null
+export (NodePath) var target := NodePath()
 
 ## Camera target offset
-export (Vector3) var offset = Vector3.ZERO
+export (Vector3) var offset := Vector3.ZERO
 
 # Node references
 onready var _screen: Sprite3D = $Sprite3D
@@ -34,12 +34,12 @@ onready var _camera: Camera = $Sprite3D/Viewport/Camera
 onready var _controller: ARVRController = get_parent()
 onready var _target: Spatial = get_node(target)
 
-func _process(delta):
+func _process(_delta):
 	# Handle placing the camera
 	if _controller.get_is_active() and _controller.is_button_pressed(place_button_id):
 		_camera.global_transform = _controller.global_transform
 		_screen.visible = true
 
 	# Have the camera face the target
-	var target = _target.global_transform.origin + offset
-	_camera.global_transform = _camera.global_transform.looking_at(target, Vector3.UP)
+	var look_target := _target.global_transform.origin + offset
+	_camera.global_transform = _camera.global_transform.looking_at(look_target, Vector3.UP)
