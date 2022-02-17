@@ -1,6 +1,17 @@
 Changes to the Godot OpenXR asset
 =================================
 
+1.2.0
+-------------------
+- Added interaction profile for the HP Reverb G2 controllers.
+- Removed deprecated `com.samsung.android.vr.application.mode` meta-data tag.
+- Updated repo `README`.
+- Added controller tracking confidence
+- Use correct predictive timing for controllers.
+- Renamed `FPSController` node of the first person controller scene to `FPController`.
+- Fixed output range for the trigger and grip values.
+- Improvements to swapchain format selection.
+
 1.1.1
 -------------------
 - Organised all third party resources into a thirdparty folder for easy maintenance.
