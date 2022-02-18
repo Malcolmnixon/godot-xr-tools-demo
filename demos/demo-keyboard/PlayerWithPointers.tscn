@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://addons/godot-xr-tools/functions/Function_Direct_movement.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/godot-openxr/scenes/first_person_controller_vr.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/godot-xr-tools/assets/LeftHand.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/godot-xr-tools/assets/RightHand.tscn" type="PackedScene" id=4]
 [ext_resource path="res://addons/godot-xr-tools/functions/Function_pointer.tscn" type="PackedScene" id=5]
+[ext_resource path="res://addons/godot-xr-tools/assets/PlayerBody.tscn" type="PackedScene" id=6]
 
 [node name="PlayerWithPointers" instance=ExtResource( 2 )]
 
@@ -30,3 +31,7 @@ max_speed = 3.0
 canFly = false
 
 [node name="Function_pointer" parent="RightHandController" index="2" instance=ExtResource( 5 )]
+
+[node name="PlayerBody" parent="." index="5" instance=ExtResource( 6 )]
+origin = NodePath("")
+camera = NodePath("")
