@@ -2,25 +2,25 @@
 
 [ext_resource path="res://demos/common/debug/SpotCamera.gd" type="Script" id=1]
 
-[sub_resource type="ViewportTexture" id=2]
-viewport_path = NodePath("Sprite3D/Viewport")
-
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 0.1, 0.1, 0.2 )
+
+[sub_resource type="ViewportTexture" id=2]
+viewport_path = NodePath("Viewport")
 
 [node name="SpotCamera" type="Spatial"]
 script = ExtResource( 1 )
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
-pixel_size = 0.0003
-texture = SubResource( 2 )
-
-[node name="Viewport" type="Viewport" parent="Sprite3D"]
+[node name="Viewport" type="Viewport" parent="."]
 size = Vector2( 800, 600 )
 render_target_v_flip = true
 
-[node name="Camera" type="Camera" parent="Sprite3D/Viewport"]
+[node name="Camera" type="Camera" parent="Viewport"]
 
-[node name="MeshInstance" type="MeshInstance" parent="Sprite3D/Viewport/Camera"]
+[node name="MeshInstance" type="MeshInstance" parent="Viewport/Camera"]
 mesh = SubResource( 1 )
 material/0 = null
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.0003
+texture = SubResource( 2 )

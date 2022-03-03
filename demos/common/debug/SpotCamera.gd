@@ -30,7 +30,7 @@ export (Vector3) var offset := Vector3.ZERO
 
 # Node references
 onready var _screen: Sprite3D = $Sprite3D
-onready var _camera: Camera = $Sprite3D/Viewport/Camera
+onready var _camera: Camera = $Viewport/Camera
 onready var _controller: ARVRController = get_parent()
 onready var _target: Spatial = get_node(target)
 
