@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/456374__felixyadomi__hop8.mp3-0679c8df79ed2577a17ded3aebb39dd0.mp3str"
+
+[deps]
+
+source_file="res://addons/freesound.org/456374__felixyadomi__hop8.mp3"
+dest_files=[ "res://.import/456374__felixyadomi__hop8.mp3-0679c8df79ed2577a17ded3aebb39dd0.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

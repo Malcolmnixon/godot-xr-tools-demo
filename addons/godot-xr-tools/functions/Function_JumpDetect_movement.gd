@@ -28,6 +28,9 @@ export var order := 20
 ## Enable detecting of jump via body (through the camera)
 export var body_jump_enable := true
 
+## Only jump as high as the player (no ground physics)
+export var body_jump_player_only := false
+
 ## Body jump detection threshold (M/S^2)
 export var body_jump_threshold := 2.5
 
@@ -120,7 +123,7 @@ func _detect_body_jump(delta: float, player_body: PlayerBody) -> void:
 
 	# Detect a jump
 	if camera_vel >= body_jump_threshold:
-		player_body.request_jump()
+		player_body.request_jump(body_jump_player_only)
 
 
 # Detect the player jumping with their arms (using the controllers)

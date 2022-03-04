@@ -207,7 +207,7 @@ func _physics_process(delta):
 	origin_node.global_transform.origin += movement
 
 # Request a jump
-func request_jump():
+func request_jump(var skip_jump_velocity := false):
 	# Skip if cooling down from a previous jump
 	if _jump_cooldown:
 		return;
@@ -222,10 +222,13 @@ func request_jump():
 		return
 
 	# Perform the jump
+	if !skip_jump_velocity:
+		var current_jump_velocity := GroundPhysicsSettings.get_jump_velocity(ground_physics, default_physics)
+		velocity.y = current_jump_velocity * ARVRServer.world_scale
+
+	# Report the jump
 	emit_signal("player_jumped")
-	var current_jump_velocity := GroundPhysicsSettings.get_jump_velocity(ground_physics, default_physics)
-	velocity.y = current_jump_velocity * ARVRServer.world_scale
-	_jump_cooldown = 4
+	_jump_cooldown = 4	
 
 # Perform a move_and_slide on the kinematic node
 func move_and_slide(var velocity: Vector3) -> Vector3:
