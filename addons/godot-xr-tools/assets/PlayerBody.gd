@@ -43,12 +43,6 @@ export var push_rigid_bodies := true
 ## GroundPhysicsSettings to apply - can only be typed in Godot 4+
 export (Resource) var physics = null setget set_physics
 
-## Path to the ARVROrigin node
-export var origin := NodePath()
-
-## Path to the ARVRCamera node
-export var camera := NodePath()
-
 # Set our collision layer
 export (int, LAYERS_3D_PHYSICS) var collision_layer = 1 << 19 setget set_collision_layer
 
@@ -56,10 +50,10 @@ export (int, LAYERS_3D_PHYSICS) var collision_layer = 1 << 19 setget set_collisi
 export (int, LAYERS_3D_PHYSICS) var collision_mask = 1023 setget set_collision_mask
 
 ## ARVROrigin node
-onready var origin_node := ARVRHelpers.get_arvr_origin(self, origin)
+onready var origin_node := ARVRHelpers.get_arvr_origin(self)
 
 ## ARVRCamera node
-onready var camera_node := ARVRHelpers.get_arvr_camera(self, camera)
+onready var camera_node := ARVRHelpers.get_arvr_camera(self)
 
 ## Player KinematicBody node
 onready var kinematic_node: KinematicBody = $KinematicBody
@@ -352,12 +346,12 @@ func _guaranteed_physics():
 # - Maximum slope is valid
 func _get_configuration_warning():
 	# Check the origin node
-	var test_origin_node = ARVRHelpers.get_arvr_origin(self, origin)
+	var test_origin_node = ARVRHelpers.get_arvr_origin(self)
 	if !test_origin_node:
 		return "Unable to find ARVR Origin node"
 
 	# Check the camera node
-	var test_camera_node = ARVRHelpers.get_arvr_camera(self, camera)
+	var test_camera_node = ARVRHelpers.get_arvr_camera(self)
 	if !test_camera_node:
 		return "Unable to find ARVR Camera node"
 

@@ -48,15 +48,9 @@ export var horizontal_slew_rate := 1.0
 ## Slew rate to transition to gliding
 export var vertical_slew_rate := 2.0
 
-## Left ARVR Controller
-export var left_controller := NodePath()
-
-## Right ARVR Controller
-export var right_controller := NodePath()
-
 # Node references
-onready var _left_controller_node := ARVRHelpers.get_left_controller(self, left_controller)
-onready var _right_controller_node := ARVRHelpers.get_right_controller(self, right_controller)
+onready var _left_controller_node := ARVRHelpers.get_left_controller(self)
+onready var _right_controller_node := ARVRHelpers.get_right_controller(self)
 
 # Is the player gliding
 var is_gliding := false
@@ -119,12 +113,12 @@ func _set_is_gliding(gliding: bool):
 # This method verifies the MovementProvider has a valid configuration.
 func _get_configuration_warning():
 	# Verify the left controller
-	var test_left_controller_node = ARVRHelpers.get_left_controller(self, left_controller)
+	var test_left_controller_node = ARVRHelpers.get_left_controller(self)
 	if !test_left_controller_node:
 		return "Unable to find left ARVR Controller node"
 
 	# Verify the right controller
-	var test_right_controller_node = ARVRHelpers.get_right_controller(self, right_controller)
+	var test_right_controller_node = ARVRHelpers.get_right_controller(self)
 	if !test_right_controller_node:
 		return "Unable to find right ARVR Controller node"
 
