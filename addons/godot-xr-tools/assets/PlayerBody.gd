@@ -26,10 +26,10 @@ signal player_jumped()
 
 
 ## PlayerBody enabled flag
-export var enabled := true setget set_enabled, get_enabled
+export var enabled := true setget set_enabled
 
 ## Player radius
-export var player_radius := 0.4 setget set_player_radius, get_player_radius
+export var player_radius := 0.4 setget set_player_radius
 
 ## Eyes forward offset from center of body in player_radius units
 export (float, 0.0, 1.0) var eye_forward_offset := 0.66
@@ -41,7 +41,7 @@ export var gravity := -9.8
 export var push_rigid_bodies := true
 
 ## GroundPhysicsSettings to apply - can only be typed in Godot 4+
-export (Resource) var physics = null setget set_physics, get_physics
+export (Resource) var physics = null setget set_physics
 
 ## Path to the ARVROrigin node
 export var origin := NodePath()
@@ -50,10 +50,10 @@ export var origin := NodePath()
 export var camera := NodePath()
 
 # Set our collision layer
-export (int, LAYERS_3D_PHYSICS) var collision_layer = 1 << 19 setget set_collision_layer, get_collision_layer
+export (int, LAYERS_3D_PHYSICS) var collision_layer = 1 << 19 setget set_collision_layer
 
 # Set our collision mask
-export (int, LAYERS_3D_PHYSICS) var collision_mask = 1023 setget set_collision_mask, get_collision_mask
+export (int, LAYERS_3D_PHYSICS) var collision_mask = 1023 setget set_collision_mask
 
 ## ARVROrigin node
 onready var origin_node := ARVRHelpers.get_arvr_origin(self, origin)
@@ -111,13 +111,18 @@ func _ready():
 	_movement_providers = get_tree().get_nodes_in_group("movement_providers")
 	_movement_providers.sort_custom(SortProviderByOrder, "sort_by_order")
 
-	# Ensure the kinematic body has the correct collision settings
-	kinematic_node.collision_layer = collision_layer
-	kinematic_node.collision_mask = collision_mask
+	# Propagate defaults
+	_update_enabled()
+	_update_player_radius()
+	_update_collision_layer()
+	_update_collision_mask()
 
 func set_enabled(new_value):
 	enabled = new_value
+	if is_inside_tree():
+		_update_enabled()
 
+func _update_enabled() -> void:
 	# Update collision_shape
 	if _collision_node:
 		_collision_node.disabled = !enabled
@@ -126,37 +131,37 @@ func set_enabled(new_value):
 	if enabled:
 		set_physics_process(true)
 
-func get_enabled():
-	return enabled
-
 func set_player_radius(new_value: float) -> void:
 	player_radius = new_value
-	_collision_node.shape.radius = new_value
+	if is_inside_tree():
+		_update_player_radius()
 
-func get_player_radius() -> float:
-	return player_radius
+func _update_player_radius() -> void:
+	if _collision_node and _collision_node.shape:
+		_collision_node.shape.radius = player_radius
 
-func set_physics(new_value: Resource):
+func set_physics(new_value: Resource) -> void:
 	# Save the property
 	physics = new_value
 	default_physics = _guaranteed_physics()
 
-func get_physics() -> Resource:
-	return physics
-
 func set_collision_layer(new_layer: int) -> void:
 	collision_layer = new_layer
-	kinematic_node.collision_layer = collision_layer
+	if is_inside_tree():
+		_update_collision_layer()
 
-func get_collision_layer() -> int:
-	return collision_layer
+func _update_collision_layer() -> void:
+	if kinematic_node:
+		kinematic_node.collision_layer = collision_layer
 
 func set_collision_mask(new_mask: int) -> void:
 	collision_mask = new_mask
-	kinematic_node.collision_mask = collision_mask
+	if is_inside_tree():
+		_update_collision_mask()
 
-func get_collision_mask() -> int:
-	return collision_mask
+func _update_collision_mask() -> void:
+	if kinematic_node:
+		kinematic_node.collision_mask = collision_mask
 
 func _physics_process(delta):
 	# Do not run physics if in the editor
