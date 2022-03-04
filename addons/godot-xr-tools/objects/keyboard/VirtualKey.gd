@@ -13,7 +13,7 @@ func _ready():
 	# Find the VirtualKeyboard parent
 	var keyboard = _get_virtual_keyboard()
 	if keyboard:
-		connect("pressed", keyboard, "on_key_pressed", [scan_code_text, unicode, shift_modifier])
+		connect("button_down", keyboard, "on_key_pressed", [scan_code_text, unicode, shift_modifier])
 
 # Get our virtual keyboard parent
 func _get_virtual_keyboard() -> VirtualKeyboard2D:

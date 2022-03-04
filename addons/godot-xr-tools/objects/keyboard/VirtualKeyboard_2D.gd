@@ -1,14 +1,25 @@
 class_name VirtualKeyboard2D
 extends CanvasLayer
 
-# Shift key state
-var _shift_key_pressed := false
+# Enumeration of keyboard view modes
+enum KEYBOARD_MODE {
+	LOWER_CASE,		# Lower-case keys mode
+	UPPER_CASE,		# Upper-case keys mode
+	ALTERNATE		# Alternate keys mode
+}
 
-# Caps-lock
-var _caps_lock_down := false
+# Shift button down
+var _shift_down := false
 
-# Current case visible
-var _upper_case := false
+# Caps button down
+var _caps_down := false
+
+# Alt button down
+var _alt_down := false
+
+# Current keyboard mode
+var _mode: int = KEYBOARD_MODE.LOWER_CASE
+
 
 # Handle key pressed from VirtualKey
 func on_key_pressed(scan_code_text: String, unicode: int, shift: bool):
@@ -27,48 +38,56 @@ func on_key_pressed(scan_code_text: String, unicode: int, shift: bool):
 	Input.parse_input_event(input)
 
 	# Pop any temporary shift key
-	if _shift_key_pressed:
-		_shift_key_pressed = false
-		_update_case()
+	if _shift_down:
+		$Background/Standard/ToggleShift.set_pressed_no_signal(false)
+		_shift_down = false
+		_update_visible()
 
-# Handle shift-key press
-func on_shift_key():
-	# Evaluate key result
-	if _upper_case:
-		# Currently displaying upper-case, so clear all upper-case sources
-		_shift_key_pressed = false
-		_caps_lock_down = false
-		$Background/Standard/ToggleCaps.set_pressed_no_signal(false)
-	else:
-		# Currently displaying lower-case, so enable upper-case by shift
-		_shift_key_pressed = true
-
-	# Update the case
-	_update_case()
+func on_shift_toggle(button_pressed):
+	# Update toggle keys
+	$Background/Standard/ToggleCaps.set_pressed_no_signal(false)
+	$Background/Standard/ToggleAlt.set_pressed_no_signal(false)
+	_shift_down = button_pressed
+	_caps_down = false
+	_alt_down = false
+	_update_visible()
 
 # Handle caps-lock toggle
 func on_caps_toggle(button_pressed):
-	# Save caps-lock state
-	_caps_lock_down = button_pressed
+	# Update toggle keys
+	$Background/Standard/ToggleShift.set_pressed_no_signal(false)
+	$Background/Standard/ToggleAlt.set_pressed_no_signal(false)
+	_shift_down = false
+	_caps_down = button_pressed
+	_alt_down = false
+	_update_visible()
 
-	# Always clear shift when caps-lock is toggled
-	_shift_key_pressed = false
-
-	# Update the case
-	_update_case()
+func on_alt_toggle(button_pressed):
+	# Update toggle keys
+	$Background/Standard/ToggleShift.set_pressed_no_signal(false)
+	$Background/Standard/ToggleCaps.set_pressed_no_signal(false)
+	_shift_down = false
+	_caps_down = false
+	_alt_down = button_pressed
+	_update_visible()
 
 # Update switching the visible case keys
-func _update_case():
-	# Decide which case should be visible
-	var upper = _shift_key_pressed or _caps_lock_down
-	if upper == _upper_case:
+func _update_visible():
+	# Evaluate the new mode
+	var new_mode: int
+	if _alt_down:
+		new_mode = KEYBOARD_MODE.ALTERNATE
+	elif _shift_down or _caps_down:
+		new_mode = KEYBOARD_MODE.UPPER_CASE
+	else:
+		new_mode = KEYBOARD_MODE.LOWER_CASE
+
+	# Skip if no change
+	if new_mode == _mode:
 		return
 
-	# Change the visible keys
-	_upper_case = upper
-	if _upper_case:
-		$Background/UpperCase.visible = true
-		$Background/LowerCase.visible = false
-	else:
-		$Background/LowerCase.visible = true
-		$Background/UpperCase.visible = false
+	# Update the visible mode
+	_mode = new_mode
+	$Background/LowerCase.visible = _mode == KEYBOARD_MODE.LOWER_CASE
+	$Background/UpperCase.visible = _mode == KEYBOARD_MODE.UPPER_CASE
+	$Background/Alternate.visible = _mode == KEYBOARD_MODE.ALTERNATE
