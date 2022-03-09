@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/146770__qubodup__rocket-boost-engine-loop.mp3-c2045cd1543393def4dc2c4ec90e3e74.mp3str"
+
+[deps]
+
+source_file="res://addons/freesound.org/146770__qubodup__rocket-boost-engine-loop.mp3"
+dest_files=[ "res://.import/146770__qubodup__rocket-boost-engine-loop.mp3-c2045cd1543393def4dc2c4ec90e3e74.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

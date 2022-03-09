@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://addons/godot-openxr/scenes/first_person_controller_vr.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/godot-xr-tools/assets/PlayerBody.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/godot-xr-tools/assets/LeftHand.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/godot-xr-tools/assets/RightHand.tscn" type="PackedScene" id=4]
 [ext_resource path="res://addons/godot-xr-tools/functions/Function_Direct_movement.tscn" type="PackedScene" id=5]
+[ext_resource path="res://addons/godot-xr-tools/functions/Function_Flight_movement.tscn" type="PackedScene" id=6]
+[ext_resource path="res://addons/freesound.org/146770__qubodup__rocket-boost-engine-loop.mp3" type="AudioStream" id=7]
+[ext_resource path="res://demos/demo-flying/PlayerSounds.gd" type="Script" id=8]
+[ext_resource path="res://addons/godot-xr-tools/functions/Function_Wind_movement.tscn" type="PackedScene" id=9]
 
 [node name="PlayerWithFlying" instance=ExtResource( 1 )]
 
@@ -17,6 +21,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03, -0.05, 0.15 )
 
 [node name="Function_Direct_movement" parent="LeftHandController" index="1" instance=ExtResource( 5 )]
 order = 11
+smooth_rotation = true
 max_speed = 3.0
 move_type = 1
 
@@ -24,8 +29,21 @@ move_type = 1
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03, -0.05, 0.15 )
 
 [node name="Function_Direct_movement" parent="RightHandController" index="1" instance=ExtResource( 5 )]
+smooth_rotation = true
 max_speed = 3.0
 
 [node name="PlayerBody" parent="." index="4" instance=ExtResource( 2 )]
-origin = NodePath("")
-camera = NodePath("")
+
+[node name="Function_Flight_movement" parent="." index="5" instance=ExtResource( 6 )]
+flight_button = 1
+
+[node name="Function_Wind_movement" parent="." index="6" instance=ExtResource( 9 )]
+
+[node name="PlayerSounds" type="Spatial" parent="." index="7"]
+script = ExtResource( 8 )
+
+[node name="JetSound" type="AudioStreamPlayer3D" parent="PlayerSounds" index="0"]
+stream = ExtResource( 7 )
+
+[connection signal="flight_finished" from="Function_Flight_movement" to="PlayerSounds" method="_on_Function_Flight_movement_flight_finished"]
+[connection signal="flight_started" from="Function_Flight_movement" to="PlayerSounds" method="_on_Function_Flight_movement_flight_started"]

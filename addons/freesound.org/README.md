@@ -14,3 +14,8 @@ This file was converted to mono MP3, and a time-reversed copy created
 File: 456374__felixyadomi__hop8.mp3
 URL: https://freesound.org/s/456374/
 This file was converted to mono MP3 and cropped
+
+## Jet Sound
+File: 146770__qubodup__rocket-boost-engine-loop.mp3
+URL: https://freesound.org/s/146770/
+This file was converted to MP3
