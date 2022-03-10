@@ -93,7 +93,6 @@ right_pickup = NodePath("../RightHandController/Function_Pickup")
 [node name="Function_Wind_movement" parent="." index="7" instance=ExtResource( 9 )]
 
 [node name="Function_Flight_movement" parent="." index="8" instance=ExtResource( 16 )]
-flight_button = 1
 
 [node name="Function_Glide_movement" parent="." index="9" instance=ExtResource( 10 )]
 
