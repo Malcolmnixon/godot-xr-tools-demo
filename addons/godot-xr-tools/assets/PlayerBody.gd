@@ -31,6 +31,9 @@ export var enabled := true setget set_enabled
 ## Player radius
 export var player_radius := 0.4 setget set_player_radius
 
+## Player head height (distance between between camera and top of head)
+export var player_head_height := 0.1
+
 ## Eyes forward offset from center of body in player_radius units
 export (float, 0.0, 1.0) var eye_forward_offset := 0.66
 
@@ -227,7 +230,7 @@ func request_jump(var skip_jump_velocity := false):
 
 	# Report the jump
 	emit_signal("player_jumped")
-	_jump_cooldown = 4	
+	_jump_cooldown = 4
 
 # Perform a move_and_slide on the kinematic node
 func move_and_slide(var velocity: Vector3) -> Vector3:
@@ -236,7 +239,7 @@ func move_and_slide(var velocity: Vector3) -> Vector3:
 # This method updates the body to match the player position
 func _update_body_under_camera():
 	# Calculate the player height based on the origin and camera position
-	var player_height := camera_node.transform.origin.y + player_radius
+	var player_height := camera_node.transform.origin.y + player_head_height
 	if player_height < player_radius:
 		player_height = player_radius
 
