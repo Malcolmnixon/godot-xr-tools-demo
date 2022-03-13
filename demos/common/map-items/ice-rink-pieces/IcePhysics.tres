@@ -8,6 +8,7 @@ script = ExtResource( 1 )
 flags = 19
 move_drag = 0.1
 move_traction = 0.1
+stop_on_slope = true
 move_max_slope = 45.0
 jump_max_slope = 45.0
 jump_velocity = 0.0
