@@ -86,6 +86,7 @@ mesh = SubResource( 1 )
 material/0 = SubResource( 4 )
 
 [node name="Function_Climb_movement" parent="." index="5" instance=ExtResource( 8 )]
+fling_multiplier = 3.0
 left_pickup = NodePath("../LeftHandController/Function_Pickup")
 right_pickup = NodePath("../RightHandController/Function_Pickup")
 

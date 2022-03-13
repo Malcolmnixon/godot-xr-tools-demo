@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/wahooney.itch.io/white_grid.png" type="Texture" id=1]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.505882, 0.505882, 0.396078, 1 )
+albedo_texture = ExtResource( 1 )
+uv1_triplanar = true
+
+[node name="JumpRamp" type="Spatial"]
+
+[node name="CSGPolygon" type="CSGPolygon" parent="."]
+use_collision = true
+polygon = PoolVector2Array( 0, 0, 0, 2, 3.464, 0 )
+depth = 3.0
+material = SubResource( 1 )
