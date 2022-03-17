@@ -99,6 +99,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot-xr-tools/objects/Wind_area.gd"
 }, {
+"base": "Node",
+"class": "XRTHighlightMaterial",
+"language": "GDScript",
+"path": "res://addons/godot-xr-tools/objects/highlight/highlight_material.gd"
+}, {
+"base": "MeshInstance",
+"class": "XRTHighlightRing",
+"language": "GDScript",
+"path": "res://addons/godot-xr-tools/objects/highlight/highlight_ring.gd"
+}, {
+"base": "Spatial",
+"class": "XRTHighlightVisible",
+"language": "GDScript",
+"path": "res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd"
+}, {
 "base": "Area",
 "class": "XRToolsInteractableArea",
 "language": "GDScript",
@@ -133,6 +148,9 @@ _global_script_class_icons={
 "VelocityAveragerLinear": "",
 "VirtualKeyboard2D": "",
 "WindArea": "",
+"XRTHighlightMaterial": "",
+"XRTHighlightRing": "",
+"XRTHighlightVisible": "",
 "XRToolsInteractableArea": "",
 "XRToolsInteractableBody": "",
 "XRToolsPickable": ""
@@ -146,7 +164,7 @@ config/icon="res://icon.png"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/godot-openxr/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/godot-openxr/plugin.cfg", "res://addons/godot-xr-tools/plugin.cfg" )
 
 [gdnative]
 
