@@ -1,34 +1,19 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://demos/common/maps/Park.tscn" type="PackedScene" id=1]
 [ext_resource path="res://demos/demo-all/AdvancedPlayer.tscn" type="PackedScene" id=2]
-[ext_resource path="res://addons/godot-xr-tools/objects/Object_pickable.gd" type="Script" id=3]
 [ext_resource path="res://addons/wahooney.itch.io/white_grid.png" type="Texture" id=4]
-[ext_resource path="res://addons/freesound.org/582705__ironcross32__short-chirp-10.mp3" type="AudioStream" id=5]
-[ext_resource path="res://addons/freesound.org/582705__ironcross32__short-chirp-10-down.mp3" type="AudioStream" id=6]
-[ext_resource path="res://addons/freesound.org/379234__tix99__skiffy1.mp3" type="AudioStream" id=7]
-[ext_resource path="res://demos/demo-all/GrabSounds.gd" type="Script" id=8]
+[ext_resource path="res://demos/common/map-items/GrabCube.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/godot-xr-tools/objects/highlight/highlight_ring.tscn" type="PackedScene" id=9]
 [ext_resource path="res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd" type="Script" id=10]
 [ext_resource path="res://addons/godot-xr-tools/objects/highlight/highlight_material.gd" type="Script" id=11]
 
-[sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.05, 0.05, 0.5 )
-
-[sub_resource type="CubeMesh" id=2]
-size = Vector3( 0.1, 0.1, 1 )
-
-[sub_resource type="SpatialMaterial" id=3]
-albedo_color = Color( 0.501961, 0.752941, 1, 1 )
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 1, 0, 1, 1 )
 albedo_texture = ExtResource( 4 )
 uv1_triplanar = true
 
-[sub_resource type="SpatialMaterial" id=5]
-albedo_color = Color( 0.745098, 1, 1, 1 )
-albedo_texture = ExtResource( 4 )
-uv1_triplanar = true
-
-[sub_resource type="ArrayMesh" id=6]
+[sub_resource type="ArrayMesh" id=2]
 surfaces/0 = {
 "aabb": AABB( -0.0557735, -0.0557735, -0.505773, 0.111547, 0.111557, 1.01156 ),
 "array_data": PoolByteArray( 194, 114, 100, 189, 194, 114, 100, 61, 95, 122, 1, 63, 0, 0, 127, 64, 0, 0, 0, 0, 194, 114, 100, 61, 194, 114, 100, 61, 95, 122, 1, 191, 127, 127, 129, 64, 85, 57, 0, 0, 194, 114, 100, 61, 194, 114, 100, 61, 95, 122, 1, 63, 0, 0, 127, 64, 85, 53, 0, 0, 194, 114, 100, 189, 194, 114, 100, 61, 95, 122, 1, 191, 127, 127, 129, 64, 0, 60, 0, 0, 194, 114, 100, 189, 194, 114, 100, 189, 95, 122, 1, 63, 0, 0, 127, 64, 0, 0, 0, 56, 194, 114, 100, 61, 194, 114, 100, 189, 95, 122, 1, 191, 127, 127, 129, 64, 85, 57, 0, 56, 194, 114, 100, 61, 194, 114, 100, 189, 95, 122, 1, 63, 0, 0, 127, 64, 85, 53, 0, 56, 194, 114, 100, 189, 194, 114, 100, 189, 95, 122, 1, 191, 127, 127, 129, 64, 0, 60, 0, 56, 194, 114, 100, 61, 194, 114, 100, 61, 95, 122, 1, 63, 127, 0, 127, 127, 85, 53, 0, 0, 194, 114, 100, 189, 194, 114, 100, 61, 95, 122, 1, 191, 129, 0, 0, 63, 0, 0, 0, 56, 194, 114, 100, 61, 194, 114, 100, 61, 95, 122, 1, 191, 127, 0, 127, 127, 85, 57, 0, 0, 194, 114, 100, 189, 194, 114, 100, 61, 95, 122, 1, 63, 129, 0, 0, 63, 85, 53, 0, 56, 194, 114, 100, 61, 194, 114, 100, 189, 95, 122, 1, 63, 127, 0, 127, 127, 85, 53, 0, 56, 194, 114, 100, 189, 194, 114, 100, 189, 95, 122, 1, 191, 129, 0, 0, 63, 0, 0, 0, 60, 194, 114, 100, 61, 194, 114, 100, 189, 95, 122, 1, 191, 127, 0, 127, 127, 85, 57, 0, 56, 194, 114, 100, 189, 194, 114, 100, 189, 95, 122, 1, 63, 129, 0, 0, 63, 85, 53, 0, 60, 194, 114, 100, 61, 194, 114, 100, 61, 95, 122, 1, 63, 0, 127, 129, 64, 85, 53, 0, 56, 194, 114, 100, 189, 194, 114, 100, 189, 95, 122, 1, 63, 0, 129, 127, 64, 85, 57, 0, 56, 194, 114, 100, 189, 194, 114, 100, 61, 95, 122, 1, 63, 0, 127, 129, 64, 85, 57, 0, 56, 194, 114, 100, 61, 194, 114, 100, 189, 95, 122, 1, 63, 0, 129, 127, 64, 0, 60, 0, 56, 194, 114, 100, 61, 194, 114, 100, 61, 95, 122, 1, 191, 0, 127, 129, 64, 85, 53, 0, 60, 194, 114, 100, 189, 194, 114, 100, 189, 95, 122, 1, 191, 0, 129, 127, 64, 85, 57, 0, 60, 194, 114, 100, 189, 194, 114, 100, 61, 95, 122, 1, 191, 0, 127, 129, 64, 85, 57, 0, 60, 194, 114, 100, 61, 194, 114, 100, 189, 95, 122, 1, 191, 0, 129, 127, 64, 0, 60, 0, 60 ),
@@ -41,7 +26,7 @@ surfaces/0 = {
 "vertex_count": 24
 }
 
-[sub_resource type="SpatialMaterial" id=7]
+[sub_resource type="SpatialMaterial" id=3]
 flags_transparent = true
 flags_unshaded = true
 albedo_color = Color( 1, 1, 0, 0.752941 )
@@ -52,105 +37,28 @@ albedo_color = Color( 1, 1, 0, 0.752941 )
 
 [node name="AdvancedPlayer" parent="." instance=ExtResource( 2 )]
 
-[node name="GrabCubeHighlightRing" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 1.4, 5 )
-gravity_scale = 0.0
-can_sleep = false
-script = ExtResource( 3 )
-reset_transform_on_pickup = false
-
-[node name="CollisionShape" type="CollisionShape" parent="GrabCubeHighlightRing"]
-shape = SubResource( 1 )
-
-[node name="MeshInstance" type="MeshInstance" parent="GrabCubeHighlightRing"]
-mesh = SubResource( 2 )
-material/0 = SubResource( 3 )
-
-[node name="GrabSounds" type="Spatial" parent="GrabCubeHighlightRing"]
-script = ExtResource( 8 )
-
-[node name="PickedUp" type="AudioStreamPlayer3D" parent="GrabCubeHighlightRing/GrabSounds"]
-stream = ExtResource( 5 )
-
-[node name="Dropped" type="AudioStreamPlayer3D" parent="GrabCubeHighlightRing/GrabSounds"]
-stream = ExtResource( 6 )
-
-[node name="ActionPressed" type="AudioStreamPlayer3D" parent="GrabCubeHighlightRing/GrabSounds"]
-stream = ExtResource( 7 )
+[node name="GrabCubeHighlightRing" parent="." instance=ExtResource( 5 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12, 1.4, 7 )
 
 [node name="XRTHighlightRing" parent="GrabCubeHighlightRing" instance=ExtResource( 9 )]
 
-[node name="GrabCubeHighlightMaterial" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 1.4, 7 )
-gravity_scale = 0.0
-can_sleep = false
-script = ExtResource( 3 )
-reset_transform_on_pickup = false
-
-[node name="CollisionShape" type="CollisionShape" parent="GrabCubeHighlightMaterial"]
-shape = SubResource( 1 )
-
-[node name="MeshInstance" type="MeshInstance" parent="GrabCubeHighlightMaterial"]
-mesh = SubResource( 2 )
-material/0 = SubResource( 3 )
-
-[node name="GrabSounds" type="Spatial" parent="GrabCubeHighlightMaterial"]
-script = ExtResource( 8 )
-
-[node name="PickedUp" type="AudioStreamPlayer3D" parent="GrabCubeHighlightMaterial/GrabSounds"]
-stream = ExtResource( 5 )
-
-[node name="Dropped" type="AudioStreamPlayer3D" parent="GrabCubeHighlightMaterial/GrabSounds"]
-stream = ExtResource( 6 )
-
-[node name="ActionPressed" type="AudioStreamPlayer3D" parent="GrabCubeHighlightMaterial/GrabSounds"]
-stream = ExtResource( 7 )
+[node name="GrabCubeHighlightMaterial" parent="." instance=ExtResource( 5 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12, 1.4, 8 )
 
 [node name="XRTHighlightMaterial" type="Node" parent="GrabCubeHighlightMaterial"]
 script = ExtResource( 11 )
 highlight_mesh_instance = NodePath("../MeshInstance")
-highlight_material = SubResource( 5 )
+highlight_material = SubResource( 1 )
 
-[node name="GrabCubeHighlightOutline" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 1.4, 9 )
-gravity_scale = 0.0
-can_sleep = false
-script = ExtResource( 3 )
-reset_transform_on_pickup = false
-
-[node name="CollisionShape" type="CollisionShape" parent="GrabCubeHighlightOutline"]
-shape = SubResource( 1 )
-
-[node name="MeshInstance" type="MeshInstance" parent="GrabCubeHighlightOutline"]
-mesh = SubResource( 2 )
-material/0 = SubResource( 3 )
-
-[node name="GrabSounds" type="Spatial" parent="GrabCubeHighlightOutline"]
-script = ExtResource( 8 )
-
-[node name="PickedUp" type="AudioStreamPlayer3D" parent="GrabCubeHighlightOutline/GrabSounds"]
-stream = ExtResource( 5 )
-
-[node name="Dropped" type="AudioStreamPlayer3D" parent="GrabCubeHighlightOutline/GrabSounds"]
-stream = ExtResource( 6 )
-
-[node name="ActionPressed" type="AudioStreamPlayer3D" parent="GrabCubeHighlightOutline/GrabSounds"]
-stream = ExtResource( 7 )
+[node name="GrabCubeHighlightOutline" parent="." instance=ExtResource( 5 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12, 1.4, 9 )
 
 [node name="XRTHighlightVisible" type="Spatial" parent="GrabCubeHighlightOutline"]
 script = ExtResource( 10 )
 
-[node name="MeshInstance" type="MeshInstance" parent="GrabCubeHighlightOutline/XRTHighlightVisible"]
-mesh = SubResource( 6 )
-skeleton = NodePath("../../MeshInstance")
-material/0 = SubResource( 7 )
+[node name="OutlineMesh" type="MeshInstance" parent="GrabCubeHighlightOutline/XRTHighlightVisible"]
+mesh = SubResource( 2 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 3 )
 
-[connection signal="action_pressed" from="GrabCubeHighlightRing" to="GrabCubeHighlightRing/GrabSounds" method="_on_action_pressed"]
-[connection signal="dropped" from="GrabCubeHighlightRing" to="GrabCubeHighlightRing/GrabSounds" method="_on_dropped"]
-[connection signal="picked_up" from="GrabCubeHighlightRing" to="GrabCubeHighlightRing/GrabSounds" method="_on_picked_up"]
-[connection signal="action_pressed" from="GrabCubeHighlightMaterial" to="GrabCubeHighlightMaterial/GrabSounds" method="_on_action_pressed"]
-[connection signal="dropped" from="GrabCubeHighlightMaterial" to="GrabCubeHighlightMaterial/GrabSounds" method="_on_dropped"]
-[connection signal="picked_up" from="GrabCubeHighlightMaterial" to="GrabCubeHighlightMaterial/GrabSounds" method="_on_picked_up"]
-[connection signal="action_pressed" from="GrabCubeHighlightOutline" to="GrabCubeHighlightOutline/GrabSounds" method="_on_action_pressed"]
-[connection signal="dropped" from="GrabCubeHighlightOutline" to="GrabCubeHighlightOutline/GrabSounds" method="_on_dropped"]
-[connection signal="picked_up" from="GrabCubeHighlightOutline" to="GrabCubeHighlightOutline/GrabSounds" method="_on_picked_up"]
+[editable path="GrabCubeHighlightMaterial"]

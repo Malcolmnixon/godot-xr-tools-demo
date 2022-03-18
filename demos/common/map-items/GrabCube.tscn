@@ -1,0 +1,48 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://addons/godot-xr-tools/objects/Object_pickable.gd" type="Script" id=2]
+[ext_resource path="res://addons/wahooney.itch.io/white_grid.png" type="Texture" id=3]
+[ext_resource path="res://demos/common/map-items/grab-cube/GrabSounds.gd" type="Script" id=4]
+[ext_resource path="res://addons/freesound.org/582705__ironcross32__short-chirp-10.mp3" type="AudioStream" id=5]
+[ext_resource path="res://addons/freesound.org/582705__ironcross32__short-chirp-10-down.mp3" type="AudioStream" id=6]
+[ext_resource path="res://addons/freesound.org/379234__tix99__skiffy1.mp3" type="AudioStream" id=7]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.05, 0.05, 0.5 )
+
+[sub_resource type="CubeMesh" id=2]
+size = Vector3( 0.1, 0.1, 1 )
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.501961, 0.752941, 1, 1 )
+albedo_texture = ExtResource( 3 )
+uv1_triplanar = true
+
+[node name="GrabCube" type="RigidBody"]
+gravity_scale = 0.0
+can_sleep = false
+script = ExtResource( 2 )
+reset_transform_on_pickup = false
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
+
+[node name="GrabSounds" type="Spatial" parent="."]
+script = ExtResource( 4 )
+
+[node name="PickedUp" type="AudioStreamPlayer3D" parent="GrabSounds"]
+stream = ExtResource( 5 )
+
+[node name="Dropped" type="AudioStreamPlayer3D" parent="GrabSounds"]
+stream = ExtResource( 6 )
+
+[node name="ActionPressed" type="AudioStreamPlayer3D" parent="GrabSounds"]
+stream = ExtResource( 7 )
+
+[connection signal="action_pressed" from="." to="GrabSounds" method="_on_action_pressed"]
+[connection signal="dropped" from="." to="GrabSounds" method="_on_dropped"]
+[connection signal="picked_up" from="." to="GrabSounds" method="_on_picked_up"]
