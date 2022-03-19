@@ -6,6 +6,7 @@ class_name XRToolsPickable
 export (bool) var press_to_hold = true
 export (bool) var reset_transform_on_pickup = true
 export  (int, LAYERS_3D_PHYSICS) var picked_up_layer = 0
+export var can_ranged_grab: bool = true
 
 # Remember some state so we can return to it when the user drops the object
 onready var original_parent = get_parent()
@@ -94,7 +95,7 @@ func pick_up(by, with_controller):
 	original_parent.remove_child(self)
 	picked_up_by.add_child(self)
 
-	if reset_transform_on_pickup:
+	if reset_transform_on_pickup or by.picked_up_ranged:
 		if center_pickup_on_node:
 			transform = center_pickup_on_node.global_transform.inverse() * global_transform
 		else:
@@ -135,11 +136,16 @@ func let_go(p_linear_velocity = Vector3(), p_angular_velocity = Vector3()):
 		emit_signal("dropped", self)
 
 func _ready():
-	# if we have center pickup on set obtain our node
-	if reset_transform_on_pickup:
-		center_pickup_on_node = get_node("PickupCenter")
+	# Attempt to get the pickup center if provided
+	center_pickup_on_node = get_node_or_null("PickupCenter")
 
 func _get_configuration_warning():
-	if reset_transform_on_pickup and !find_node("PickupCenter"):
-		return "Missing PickupCenter child node for 'reset transform on pickup'"
+	# Check for error cases when missing a PickupCenter
+	if not find_node("PickupCenter"):
+		if reset_transform_on_pickup:
+			return "Missing PickupCenter child node for 'reset transform on pickup'"
+		if can_ranged_grab:
+			return "Missing PickupCenter child node for 'remote grabbing'"
+
+	# No issues found
 	return ""

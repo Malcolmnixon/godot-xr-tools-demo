@@ -47,7 +47,6 @@ material/0 = SubResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03, -0.05, 0.15 )
 
 [node name="Function_Pickup" parent="LeftHandController" index="1" instance=ExtResource( 6 )]
-pickup_range = 0.2
 
 [node name="Function_Direct_movement" parent="LeftHandController" index="2" instance=ExtResource( 1 )]
 smooth_rotation = true
@@ -59,12 +58,12 @@ jump_button_id = 7
 
 [node name="DebugScreen" parent="LeftHandController" index="4" instance=ExtResource( 11 )]
 transform = Transform( 1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 0.1, 0.1 )
+visible = false
 
 [node name="RightHand" parent="RightHandController" index="0" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03, -0.05, 0.15 )
 
 [node name="Function_Pickup" parent="RightHandController" index="1" instance=ExtResource( 6 )]
-pickup_range = 0.2
 
 [node name="Function_Direct_movement" parent="RightHandController" index="2" instance=ExtResource( 1 )]
 smooth_rotation = true
@@ -75,6 +74,7 @@ jump_button_id = 7
 
 [node name="SpotCamera" parent="RightHandController" index="4" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0.1 )
+visible = false
 place_button_id = 1
 target = NodePath("../../PlayerBody/KinematicBody")
 offset = Vector3( 0, 0.6, 0 )
