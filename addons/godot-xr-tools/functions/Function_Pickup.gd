@@ -239,12 +239,12 @@ func _update_closest_object() -> void:
 		return
 
 	# remove highlight on old object
-	if closest_object:
+	if is_instance_valid(closest_object):
 		closest_object.decrease_is_closest()
 
 	# add highlight to new object
 	closest_object = new_closest_obj
-	if closest_object:
+	if is_instance_valid(closest_object):
 		closest_object.increase_is_closest()
 
 
