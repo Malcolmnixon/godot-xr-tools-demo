@@ -130,9 +130,13 @@ func _ready():
 
 # Called on each frame to update the pickup
 func _process(delta):
-	# Calculate velocity averaging on any picked up object
-	if picked_up_object:
+	# Calculate average velocity
+	if picked_up_object and picked_up_object.is_picked_up():
+		# Average velocity of picked up object
 		_velocity_averager.add_transform(delta, picked_up_object.global_transform)
+	else:
+		# Average velocity of this pickup
+		_velocity_averager.add_transform(delta, global_transform)
 
 	_update_closest_object()
 
@@ -253,8 +257,8 @@ func _get_closest_grab() -> Spatial:
 	var new_closest_obj: Spatial = null
 	var new_closest_distance := MAX_GRAB_DISTANCE2
 	for o in _object_in_grab_area:
-		# skip objects that are already picked up
-		if o.is_picked_up():
+		# skip objects that can not be picked up
+		if not o.can_pick_up():
 			continue
 
 		# Save if this object is closer than the current best
@@ -273,8 +277,8 @@ func _get_closest_ranged() -> Spatial:
 	var new_closest_angle_dp := cos(deg2rad(ranged_angle))
 	var hand_forwards := -global_transform.basis.z
 	for o in _object_in_ranged_area:
-		# skip objects that are already picked up
-		if o.is_picked_up():
+		# skip objects that can not be picked up
+		if not o.can_pick_up():
 			continue
 
 		# Save if this object is closer than the current best
@@ -298,7 +302,6 @@ func drop_object() -> void:
 		_velocity_averager.linear_velocity() * impulse_factor,
 		_velocity_averager.angular_velocity())
 	picked_up_object = null
-	_velocity_averager.clear()
 	emit_signal("has_dropped")
 
 

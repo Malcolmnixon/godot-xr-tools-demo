@@ -39,6 +39,7 @@ albedo_color = Color( 1, 1, 0, 0.752941 )
 
 [node name="GrabCubeHighlightRing" parent="." instance=ExtResource( 5 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12, 1.4, 7 )
+ranged_grab_method = 2
 
 [node name="XRTHighlightRing" parent="GrabCubeHighlightRing" instance=ExtResource( 9 )]
 
@@ -52,6 +53,8 @@ highlight_material = SubResource( 1 )
 
 [node name="GrabCubeHighlightOutline" parent="." instance=ExtResource( 5 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12, 1.4, 9 )
+hold_method = 1
+ranged_grab_method = 2
 
 [node name="XRTHighlightVisible" type="Spatial" parent="GrabCubeHighlightOutline"]
 script = ExtResource( 10 )
