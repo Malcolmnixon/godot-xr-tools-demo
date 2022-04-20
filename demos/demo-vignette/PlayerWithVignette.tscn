@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://addons/godot-xr-tools/assets/RightHand.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/godot-openxr/scenes/first_person_controller_vr.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://addons/godot-xr-tools/effects/vignette.tscn" type="PackedScene" id=4]
 [ext_resource path="res://addons/godot-xr-tools/functions/Function_Direct_movement.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/godot-xr-tools/assets/PlayerBody.tscn" type="PackedScene" id=6]
+[ext_resource path="res://addons/godot-xr-tools/functions/Function_Turn_movement.tscn" type="PackedScene" id=7]
 
 [node name="PlayerWithVignette" instance=ExtResource( 2 )]
 
@@ -19,19 +20,16 @@ refresh_rate = 0.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03, -0.05, 0.15 )
 
 [node name="Function_Direct_movement" parent="LeftHandController" index="1" instance=ExtResource( 5 )]
-smooth_rotation = true
 max_speed = 3.0
-move_type = 1
-canFly = false
+strafe = true
 
 [node name="RightHand" parent="RightHandController" index="0" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03, -0.05, 0.15 )
 
 [node name="Function_Direct_movement" parent="RightHandController" index="1" instance=ExtResource( 5 )]
-smooth_rotation = true
 max_speed = 3.0
-canFly = false
 
-[node name="PlayerBody" parent="." index="5" instance=ExtResource( 6 )]
-origin = NodePath("")
-camera = NodePath("")
+[node name="Function_Turn_movement" parent="RightHandController" index="2" instance=ExtResource( 7 )]
+smooth_rotation = true
+
+[node name="PlayerBody" parent="." index="4" instance=ExtResource( 6 )]
