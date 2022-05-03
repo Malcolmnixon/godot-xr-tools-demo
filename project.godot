@@ -35,6 +35,11 @@ _global_script_classes=[ {
 "path": "res://addons/godot-xr-tools/functions/Function_Glide_movement.gd"
 }, {
 "base": "MovementProvider",
+"class": "Function_Grapple",
+"language": "GDScript",
+"path": "res://addons/godot-xr-tools/functions/Function_Grapple.gd"
+}, {
+"base": "MovementProvider",
 "class": "Function_Jump",
 "language": "GDScript",
 "path": "res://addons/godot-xr-tools/functions/Function_Jump_movement.gd"
@@ -140,6 +145,7 @@ _global_script_class_icons={
 "Function_DirectMovement": "",
 "Function_FlightMovement": "",
 "Function_Glide": "",
+"Function_Grapple": "",
 "Function_Jump": "",
 "Function_JumpDetect": "",
 "Function_Pickup": "",

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://demos/common/map-items/RampPark.tscn" type="PackedScene" id=1]
 [ext_resource path="res://demos/common/maps/GroundPlane.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://demos/common/map-items/ClimbTower.tscn" type="PackedScene" id=10]
 [ext_resource path="res://demos/common/map-items/SkiSlope.tscn" type="PackedScene" id=11]
 [ext_resource path="res://demos/common/map-items/JumpPadRamp.tscn" type="PackedScene" id=12]
+[ext_resource path="res://demos/common/map-items/MonkeyBars.tscn" type="PackedScene" id=13]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Draft"
@@ -102,6 +103,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -37 )
 
 [node name="JumpPadRamp2" parent="." instance=ExtResource( 12 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 10, 0, -40 )
+
+[node name="MonkeyBars" parent="." instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 7, 27 )
 
 [editable path="WindTunnel2"]
 [editable path="WindTunnel2/DraftShow"]
