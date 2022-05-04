@@ -37,7 +37,7 @@ _global_script_classes=[ {
 "base": "MovementProvider",
 "class": "Function_Grapple",
 "language": "GDScript",
-"path": "res://addons/godot-xr-tools/functions/Function_Grapple.gd"
+"path": "res://addons/godot-xr-tools/functions/Function_Grapple_movement.gd"
 }, {
 "base": "MovementProvider",
 "class": "Function_Jump",

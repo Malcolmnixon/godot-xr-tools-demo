@@ -7,7 +7,7 @@
 [ext_resource path="res://addons/godot-xr-tools/assets/LeftHand.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/godot-xr-tools/assets/RightHand.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/godot-xr-tools/functions/Function_Direct_movement.tscn" type="PackedScene" id=7]
-[ext_resource path="res://addons/godot-xr-tools/functions/Function_Grapple.tscn" type="PackedScene" id=8]
+[ext_resource path="res://addons/godot-xr-tools/functions/Function_Grapple_movement.tscn" type="PackedScene" id=8]
 [ext_resource path="res://addons/godot-xr-tools/functions/Function_Pickup.tscn" type="PackedScene" id=9]
 
 [node name="PlayerWithGrapple" instance=ExtResource( 1 )]
@@ -35,11 +35,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03, -0.05, 0.15 )
 [node name="Function_Turn_movement" parent="RightHandController" index="2" instance=ExtResource( 3 )]
 smooth_rotation = true
 
-[node name="Function_Grapple" parent="RightHandController" index="3" instance=ExtResource( 8 )]
-grapple_speed = 10.0
-grapple_length = 20.0
+[node name="Function_Pickup" parent="RightHandController" index="3" instance=ExtResource( 9 )]
 
-[node name="Function_Pickup" parent="RightHandController" index="4" instance=ExtResource( 9 )]
+[node name="Function_Grapple_movement" parent="RightHandController" index="4" instance=ExtResource( 8 )]
 
 [node name="PlayerBody" parent="." index="4" instance=ExtResource( 4 )]
 
