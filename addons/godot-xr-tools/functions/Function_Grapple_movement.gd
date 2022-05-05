@@ -47,7 +47,6 @@ enum Buttons {
 # Grapple state
 enum GrappleState {
 	IDLE,			# Idle
-	TARGET,			# Grapple has target
 	FIRED,			# Grapple is fired
 	WINCHING,		# Grapple is winching
 }
@@ -77,9 +76,6 @@ export var friction := 0.1
 
 ## Grapple button (triggers grappling movement).  Be sure this button does not conflict with other functions.
 export (Buttons) var grapple_button_id : int = Buttons.VR_TRIGGER
-
-# Grapple state
-var grapple_state : int = GrappleState.IDLE
 
 # Hook related variables
 var hook_point := Vector3(0,0,0)
@@ -122,76 +118,53 @@ func _ready():
 	_line.hide()
 
 
-# Called before every frame update
-func _process(delta: float):
-	# Skip if invalid
-	if !_controller:
+# Update grapple display objects
+func _process(_delta: float):
+	# Skip if running in the editor
+	if Engine.editor_hint:
 		return
 
-	# Update grapple button even if disabled
-	var old_grapple_button := _grapple_button
-	_grapple_button = _controller.is_button_pressed(grapple_button_id)
-	
-	# Calculate the new grappling state
-	var old_grapple_state := grapple_state
-	if !enabled or !_controller.get_is_active():
-		# Grappling disabled, go to idle
-		grapple_state = GrappleState.IDLE
-	else:
-		match old_grapple_state:
-			GrappleState.IDLE:
-				if _grapple_raycast.is_colliding():
-					# IDLE -> TARGET
-					grapple_state = GrappleState.TARGET
-
-			GrappleState.TARGET:
-				if !_grapple_raycast.is_colliding():
-					# TARGET -> IDLE
-					grapple_state = GrappleState.IDLE
-				elif _grapple_button and !old_grapple_button:
-					# TARGET -> FIRED
-					hook_point = _grapple_raycast.get_collision_point()
-					grapple_state = GrappleState.FIRED
-
-			GrappleState.WINCHING:
-				if !_grapple_button:
-					# WINCHING -> IDLE
-					grapple_state = GrappleState.IDLE
-
-	# Handle state change
-	if grapple_state != old_grapple_state:
-		# Fire signals
-		if grapple_state == GrappleState.FIRED:
-			# Report grapple fired
-			emit_signal("grapple_started")
-		elif old_grapple_state == GrappleState.WINCHING:
-			# Report end of winching
-			emit_signal("grapple_finished")
-
-		# Update active
-		is_active = grapple_state != GrappleState.IDLE
-
-		# Update visibility
-		_line.visible = grapple_state >= GrappleState.FIRED
-		_grapple_target.visible = grapple_state == GrappleState.TARGET
-
-	# Update grapple line if visible
-	if _line.visible:
+	# Update grapple line
+	if is_active:
 		var line_length := (hook_point - _controller.global_transform.origin).length()
 		_line_helper.look_at(hook_point, Vector3.UP)
 		_line.height = line_length
 		_line.translation.z = line_length / -2
+		_line.visible = true
+	else:
+		_line.visible = false
 
-	# Update grapple target if visible
-	if _grapple_target.visible:
+	# Update grapple target
+	if !is_active and _grapple_raycast.is_colliding():
 		_grapple_target.global_transform.origin  = _grapple_raycast.get_collision_point()
 		_grapple_target.global_transform = _grapple_target.global_transform.orthonormalized()
+		_grapple_target.visible = true
+	else:
+		_grapple_target.visible = false
 
 
 # Perform grapple movement
-func physics_movement(delta: float, player_body: PlayerBody):
+func physics_movement(delta: float, player_body: PlayerBody, disabled: bool):
+	# Disable if requested
+	if disabled or !enabled or !_controller.get_is_active():
+		_set_grappling(false)
+		return
+
+	# Update grapple button
+	var old_grapple_button := _grapple_button
+	_grapple_button = _controller.is_button_pressed(grapple_button_id)
+
+	# Enable/disable grappling
+	var do_impulse := false
+	if is_active and !_grapple_button:
+		_set_grappling(false)
+	elif _grapple_button and !old_grapple_button and _grapple_raycast.is_colliding():
+		hook_point = _grapple_raycast.get_collision_point()
+		do_impulse = true
+		_set_grappling(true)
+
 	# Skip if not grappling
-	if grapple_state < GrappleState.FIRED:
+	if !is_active:
 		return
 
 	# Get hook direction
@@ -203,12 +176,9 @@ func physics_movement(delta: float, player_body: PlayerBody):
 	player_body.velocity += Vector3.UP * player_body.gravity * delta
 
 	# Select the grapple speed
-	var speed := impulse_speed if grapple_state == GrappleState.FIRED else winch_speed
+	var speed := impulse_speed if do_impulse else winch_speed
 	if hook_length < 1.0:
 		speed = 0.0
-
-	# Transition from FIRED to WINCHING
-	grapple_state = GrappleState.WINCHING
 
 	# Ensure velocity is at least winch_speed towards hook
 	var vdot = player_body.velocity.dot(hook_direction)
@@ -228,6 +198,22 @@ func _set_grapple_collision_mask(var new_value: int) -> void:
 	grapple_collision_mask = new_value
 	if is_inside_tree() and _grapple_raycast:
 		_grapple_raycast.collision_mask = new_value
+
+
+# Set the grappling state and fire any signals
+func _set_grappling(var active: bool) -> void:
+	# Skip if no change
+	if active == is_active:
+		return
+
+	# Update the is_active flag
+	is_active = active;
+
+	# Report transition
+	if is_active:
+		emit_signal("grapple_started")
+	else:
+		emit_signal("grapple_finished")
 
 
 # This method verifies the MovementProvider has a valid configuration.

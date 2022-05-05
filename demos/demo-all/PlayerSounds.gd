@@ -18,3 +18,12 @@ func _on_Function_Glide_movement_player_glide_start():
 
 func _on_Function_Glide_movement_player_glide_end():
 	$GlideSound.stop()
+
+
+func _on_Function_Grapple_movement_grapple_started():
+	$WooshSound.play()
+	$CreakSound.play()
+
+
+func _on_Function_Grapple_movement_grapple_finished():
+	$CreakSound.stop()

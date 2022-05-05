@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/231438__6polnic__hamp-rope-creaks.mp3-d109117d603607eb3f9f94303a2472c4.mp3str"
+
+[deps]
+
+source_file="res://addons/freesound.org/231438__6polnic__hamp-rope-creaks.mp3"
+dest_files=[ "res://.import/231438__6polnic__hamp-rope-creaks.mp3-d109117d603607eb3f9f94303a2472c4.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
