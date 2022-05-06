@@ -164,10 +164,10 @@ func drop_and_free():
 
 
 # Called when this object is picked up
-func pick_up(by, with_controller):
+func pick_up(by, with_controller) -> Spatial:
 	# Skip if not idle
 	if _state != PickableState.IDLE:
-		return
+		return null
 
 	if picked_up_by:
 		let_go()
@@ -194,6 +194,8 @@ func pick_up(by, with_controller):
 	else:
 		_do_precise_grab()
 
+	return self
+
 
 # Called when this object is dropped
 func let_go(p_linear_velocity = Vector3(), p_angular_velocity = Vector3()):
@@ -209,7 +211,7 @@ func let_go(p_linear_velocity = Vector3(), p_angular_velocity = Vector3()):
 				picked_up_by.remove_child(self)
 				original_parent.add_child(self)
 				global_transform = original_transform
-			
+
 			HoldMethod.REMOTE_TRANSFORM:
 				_remote_transform.queue_free()
 				_remote_transform = null

@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://demos/common/maps/Park.tscn" type="PackedScene" id=1]
 [ext_resource path="res://demos/demo-all/AdvancedPlayer.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/godot-xr-tools/objects/Snap_Zone.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/wahooney.itch.io/white_grid.png" type="Texture" id=4]
 [ext_resource path="res://demos/common/map-items/GrabCube.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/godot-xr-tools/objects/highlight/highlight_ring.tscn" type="PackedScene" id=9]
@@ -63,5 +64,11 @@ script = ExtResource( 10 )
 mesh = SubResource( 2 )
 skeleton = NodePath("../..")
 material/0 = SubResource( 3 )
+
+[node name="Snap_Zone" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 1.4, 8 )
+
+[node name="XRTHighlightRing" parent="Snap_Zone" instance=ExtResource( 9 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0 )
 
 [editable path="GrabCubeHighlightMaterial"]
