@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://addons/godot-xr-tools/functions/Function_Direct_movement.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/godot-xr-tools/assets/RightHand.tscn" type="PackedScene" id=2]
@@ -22,6 +22,8 @@
 [ext_resource path="res://addons/godot-xr-tools/functions/Function_Grapple_movement.tscn" type="PackedScene" id=20]
 [ext_resource path="res://addons/freesound.org/473583__nox-sound__whoosh-rope.mp3" type="AudioStream" id=21]
 [ext_resource path="res://addons/freesound.org/231438__6polnic__hamp-rope-creaks.mp3" type="AudioStream" id=22]
+[ext_resource path="res://addons/godot-xr-tools/objects/highlight/highlight_ring.tscn" type="PackedScene" id=23]
+[ext_resource path="res://addons/godot-xr-tools/objects/Snap_Zone.tscn" type="PackedScene" id=24]
 
 [sub_resource type="SphereMesh" id=2]
 radius = 0.1
@@ -50,7 +52,7 @@ material/0 = SubResource( 3 )
 [node name="LeftHand" parent="LeftHandController" index="0" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03, -0.05, 0.15 )
 
-[node name="Function_Pickup" parent="LeftHandController" index="1" instance=ExtResource( 6 )]
+[node name="Function_Pickup" parent="LeftHandController" index="1" groups=["left_pickup"] instance=ExtResource( 6 )]
 
 [node name="Function_Direct_movement" parent="LeftHandController" index="2" instance=ExtResource( 1 )]
 max_speed = 4.0
@@ -63,10 +65,17 @@ jump_button_id = 7
 transform = Transform( 1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 0.1, 0.1 )
 visible = false
 
+[node name="Snap_Zone" parent="LeftHandController" index="5" instance=ExtResource( 24 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07, -0.05, 0.2 )
+grab_distance = 0.1
+grab_exclude = "left_pickup"
+
+[node name="XRTHighlightRing" parent="LeftHandController/Snap_Zone" index="1" instance=ExtResource( 23 )]
+
 [node name="RightHand" parent="RightHandController" index="0" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03, -0.05, 0.15 )
 
-[node name="Function_Pickup" parent="RightHandController" index="1" instance=ExtResource( 6 )]
+[node name="Function_Pickup" parent="RightHandController" index="1" groups=["right_pickup"] instance=ExtResource( 6 )]
 
 [node name="Function_Direct_movement" parent="RightHandController" index="2" instance=ExtResource( 1 )]
 max_speed = 4.0
@@ -87,6 +96,13 @@ visible = false
 place_button_id = 1
 target = NodePath("../../PlayerBody/KinematicBody")
 offset = Vector3( 0, 0.6, 0 )
+
+[node name="Snap_Zone" parent="RightHandController" index="7" instance=ExtResource( 24 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.07, -0.05, 0.2 )
+grab_distance = 0.1
+grab_exclude = "right_pickup"
+
+[node name="XRTHighlightRing" parent="RightHandController/Snap_Zone" index="1" instance=ExtResource( 23 )]
 
 [node name="PlayerBody" parent="." index="4" instance=ExtResource( 12 )]
 

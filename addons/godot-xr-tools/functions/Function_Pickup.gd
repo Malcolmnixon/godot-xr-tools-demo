@@ -264,7 +264,7 @@ func _get_closest_grab() -> Spatial:
 	var new_closest_distance := MAX_GRAB_DISTANCE2
 	for o in _object_in_grab_area:
 		# skip objects that can not be picked up
-		if not o.can_pick_up():
+		if not o.can_pick_up(self):
 			continue
 
 		# Save if this object is closer than the current best
@@ -284,7 +284,7 @@ func _get_closest_ranged() -> Spatial:
 	var hand_forwards := -global_transform.basis.z
 	for o in _object_in_ranged_area:
 		# skip objects that can not be picked up
-		if not o.can_pick_up():
+		if not o.can_pick_up(self):
 			continue
 
 		# Save if this object is closer than the current best

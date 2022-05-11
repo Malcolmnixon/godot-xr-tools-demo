@@ -63,6 +63,12 @@ export (RangedMethod) var ranged_grab_method = RangedMethod.SNAP setget _set_ran
 ## Speed for ranged grab
 export var ranged_grab_speed: float = 20.0
 
+## Refuse pick-by when in the specified group
+export var picked_by_exclude: String = ""
+
+## Require pick-by to be in the specified group
+export var picked_by_require: String = ""
+
 
 # Can object be grabbed at range
 var can_ranged_grab: bool = true
@@ -119,7 +125,7 @@ func _process(delta: float) -> void:
 
 
 # Test if this object can be picked up
-func can_pick_up() -> bool:
+func can_pick_up(_by: Spatial) -> bool:
 	return _state == PickableState.IDLE
 
 
@@ -164,13 +170,13 @@ func drop_and_free():
 
 
 # Called when this object is picked up
-func pick_up(by, with_controller) -> Spatial:
+func pick_up(by: Spatial, with_controller: ARVRController) -> Spatial:
 	# Skip if not idle
 	if _state != PickableState.IDLE:
 		return null
 
 	if picked_up_by:
-		let_go()
+		let_go(Vector3.ZERO, Vector3.ZERO)
 
 	# remember who picked us up
 	picked_up_by = by
@@ -198,7 +204,7 @@ func pick_up(by, with_controller) -> Spatial:
 
 
 # Called when this object is dropped
-func let_go(p_linear_velocity = Vector3(), p_angular_velocity = Vector3()):
+func let_go(p_linear_velocity: Vector3, p_angular_velocity: Vector3) -> void:
 	# Skip if idle
 	if _state == PickableState.IDLE:
 		return
