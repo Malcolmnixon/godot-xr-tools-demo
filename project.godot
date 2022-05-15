@@ -125,6 +125,11 @@ _global_script_classes=[ {
 "path": "res://addons/godot-xr-tools/objects/highlight/highlight_visible.gd"
 }, {
 "base": "Area",
+"class": "XRTSnapZone",
+"language": "GDScript",
+"path": "res://addons/godot-xr-tools/objects/Snap_Zone.gd"
+}, {
+"base": "Area",
 "class": "XRToolsInteractableArea",
 "language": "GDScript",
 "path": "res://addons/godot-xr-tools/objects/Interactable_area.gd"
@@ -163,6 +168,7 @@ _global_script_class_icons={
 "XRTHighlightMaterial": "",
 "XRTHighlightRing": "",
 "XRTHighlightVisible": "",
+"XRTSnapZone": "",
 "XRToolsInteractableArea": "",
 "XRToolsInteractableBody": "",
 "XRToolsPickable": ""
