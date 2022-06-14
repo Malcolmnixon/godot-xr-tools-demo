@@ -27,3 +27,7 @@ func _on_Function_Grapple_movement_grapple_started():
 
 func _on_Function_Grapple_movement_grapple_finished():
 	$CreakSound.stop()
+
+
+func _on_Function_Fall_damage_player_fall_damage(_damage: float):
+	$FallSound.play()

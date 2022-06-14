@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://addons/godot-xr-tools/functions/Function_Direct_movement.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/godot-xr-tools/assets/RightHand.tscn" type="PackedScene" id=2]
@@ -24,6 +24,8 @@
 [ext_resource path="res://addons/freesound.org/231438__6polnic__hamp-rope-creaks.mp3" type="AudioStream" id=22]
 [ext_resource path="res://addons/godot-xr-tools/objects/highlight/highlight_ring.tscn" type="PackedScene" id=23]
 [ext_resource path="res://addons/godot-xr-tools/objects/Snap_Zone.tscn" type="PackedScene" id=24]
+[ext_resource path="res://addons/godot-xr-tools/functions/Function_Fall_damage.tscn" type="PackedScene" id=25]
+[ext_resource path="res://addons/freesound.org/447922__breviceps__thud-falling-on-wooden-floor-snapping-breaking-neck.mp3" type="AudioStream" id=26]
 
 [sub_resource type="SphereMesh" id=2]
 radius = 0.1
@@ -41,9 +43,8 @@ albedo_color = Color( 1, 0, 1, 1 )
 
 [node name="AdvancedPlayer" instance=ExtResource( 3 )]
 
-[node name="Configuration" parent="." index="0"]
-color_space = 0
-refresh_rate = 0.0
+[node name="ARVRCamera" parent="." index="1"]
+far = 1000.0
 
 [node name="MeshInstance" type="MeshInstance" parent="ARVRCamera" index="0"]
 mesh = SubResource( 2 )
@@ -123,7 +124,9 @@ right_pickup = NodePath("../RightHandController/Function_Pickup")
 
 [node name="Function_Glide_movement" parent="." index="9" instance=ExtResource( 10 )]
 
-[node name="PlayerSounds" type="Spatial" parent="." index="10"]
+[node name="Function_Fall_damage" parent="." index="10" instance=ExtResource( 25 )]
+
+[node name="PlayerSounds" type="Spatial" parent="." index="11"]
 script = ExtResource( 15 )
 
 [node name="JumpSound" type="AudioStreamPlayer3D" parent="PlayerSounds" index="0"]
@@ -142,6 +145,9 @@ stream = ExtResource( 21 )
 [node name="CreakSound" type="AudioStreamPlayer3D" parent="PlayerSounds" index="4"]
 stream = ExtResource( 22 )
 
+[node name="FallSound" type="AudioStreamPlayer3D" parent="PlayerSounds" index="5"]
+stream = ExtResource( 26 )
+
 [connection signal="grapple_finished" from="RightHandController/Function_Grapple_movement" to="PlayerSounds" method="_on_Function_Grapple_movement_grapple_finished"]
 [connection signal="grapple_started" from="RightHandController/Function_Grapple_movement" to="PlayerSounds" method="_on_Function_Grapple_movement_grapple_started"]
 [connection signal="player_jumped" from="PlayerBody" to="PlayerSounds" method="play_jump_sound"]
@@ -149,5 +155,6 @@ stream = ExtResource( 22 )
 [connection signal="flight_started" from="Function_Flight_movement" to="PlayerSounds" method="_on_Function_Flight_movement_flight_started"]
 [connection signal="player_glide_end" from="Function_Glide_movement" to="PlayerSounds" method="_on_Function_Glide_movement_player_glide_end"]
 [connection signal="player_glide_start" from="Function_Glide_movement" to="PlayerSounds" method="_on_Function_Glide_movement_player_glide_start"]
+[connection signal="player_fall_damage" from="Function_Fall_damage" to="PlayerSounds" method="_on_Function_Fall_damage_player_fall_damage"]
 
 [editable path="PlayerBody"]

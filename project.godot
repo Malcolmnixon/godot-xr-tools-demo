@@ -25,6 +25,11 @@ _global_script_classes=[ {
 "path": "res://addons/godot-xr-tools/functions/Function_Direct_movement.gd"
 }, {
 "base": "MovementProvider",
+"class": "Function_FallDamage",
+"language": "GDScript",
+"path": "res://addons/godot-xr-tools/functions/Function_Fall_damage.gd"
+}, {
+"base": "MovementProvider",
 "class": "Function_FlightMovement",
 "language": "GDScript",
 "path": "res://addons/godot-xr-tools/functions/Function_Flight_movement.gd"
@@ -148,6 +153,7 @@ _global_script_class_icons={
 "ARVRHelpers": "",
 "Function_ClimbMovement": "",
 "Function_DirectMovement": "",
+"Function_FallDamage": "",
 "Function_FlightMovement": "",
 "Function_Glide": "",
 "Function_Grapple": "",
