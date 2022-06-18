@@ -32,7 +32,7 @@ _global_script_classes=[ {
 "base": "MovementProvider",
 "class": "Function_FallDamage",
 "language": "GDScript",
-"path": "res://addons/godot-xr-tools/functions/Function_Fall_damage.gd"
+"path": "res://addons/godot-xr-tools/examples/Function_Fall_damage.gd"
 }, {
 "base": "MovementProvider",
 "class": "Function_FlightMovement",

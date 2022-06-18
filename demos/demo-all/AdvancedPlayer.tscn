@@ -24,7 +24,7 @@
 [ext_resource path="res://addons/freesound.org/231438__6polnic__hamp-rope-creaks.mp3" type="AudioStream" id=22]
 [ext_resource path="res://addons/godot-xr-tools/objects/highlight/highlight_ring.tscn" type="PackedScene" id=23]
 [ext_resource path="res://addons/godot-xr-tools/objects/Snap_Zone.tscn" type="PackedScene" id=24]
-[ext_resource path="res://addons/godot-xr-tools/functions/Function_Fall_damage.tscn" type="PackedScene" id=25]
+[ext_resource path="res://addons/godot-xr-tools/examples/Function_Fall_damage.tscn" type="PackedScene" id=25]
 [ext_resource path="res://addons/freesound.org/447922__breviceps__thud-falling-on-wooden-floor-snapping-breaking-neck.mp3" type="AudioStream" id=26]
 [ext_resource path="res://addons/godot-xr-tools/functions/Function_Crouch_movement.tscn" type="PackedScene" id=27]
 
