@@ -4,6 +4,7 @@
 - Added crouch movement provider
 - Added example fall damage detection
 - Added moving platform support to player body
+- Modified hands to scale with world_scale (required for godot-openxr 1.3.0 and later)
 
 # 2.4.1
 - Fixed grab distance

@@ -43,6 +43,7 @@ height = 0.2
 albedo_color = Color( 1, 0, 1, 1 )
 
 [node name="AdvancedPlayer" instance=ExtResource( 3 )]
+near_z = 0.02
 
 [node name="ARVRCamera" parent="." index="1"]
 far = 1000.0

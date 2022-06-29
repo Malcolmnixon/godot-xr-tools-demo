@@ -1,7 +1,24 @@
 extends Spatial
 
+
+# Last world scale (for scaling hands)
+var _last_world_scale := 1.0
+
+
+# Capture the initial transform
+onready var _transform := transform
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	# Scale the hand mesh with the world scale. This is required for OpenXR plugin
+	# 1.3.0 and later where the plugin no-longer scales the controllers with
+	# world_scale
+	if ARVRServer.world_scale != _last_world_scale:
+		_last_world_scale = ARVRServer.world_scale
+		transform = _transform.scaled(Vector3.ONE * _last_world_scale)
+
+	# Animate the hand mesh with the controller inputs
 	var controller : ARVRController = get_parent()
 	if controller:
 		var grip = controller.get_joystick_axis(JOY_VR_ANALOG_GRIP)
