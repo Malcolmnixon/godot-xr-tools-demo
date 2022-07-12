@@ -5,9 +5,6 @@
 
 [node name="LeftPhysicsHand" instance=ExtResource( 1 )]
 
-[node name="Hand_Left" parent="LeftHand/Armature_Left/Skeleton" index="0"]
-material/0 = null
-
 [node name="BoneRoot" type="BoneAttachment" parent="LeftHand/Armature_Left/Skeleton" index="1"]
 transform = Transform( 1, -2.50192e-40, 1.51496e-08, 1.51445e-08, -0.025905, -0.999665, 3.92449e-10, 0.999664, -0.025905, 7.2293e-21, 0.000360775, -0.0235019 )
 bone_name = "root"

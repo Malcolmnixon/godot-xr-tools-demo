@@ -9,7 +9,7 @@ export var length: float = 0.03
 export var width_ratio = 0.3
 
 ## Collision layer for this bone
-export (int, LAYERS_3D_PHYSICS) var collision_layer = 1 << 18
+export (int, LAYERS_3D_PHYSICS) var collision_layer = 1 << 17
 
 ## Collision mask for this bone
 export (int, LAYERS_3D_PHYSICS) var collision_mask = 1023
