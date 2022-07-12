@@ -1,6 +1,10 @@
 extends Spatial
 
 
+# Signal emitted when the hand scale changes
+signal hand_scale_changed(scale)
+
+
 # Last world scale (for scaling hands)
 var _last_world_scale := 1.0
 
@@ -17,6 +21,7 @@ func _process(delta):
 	if ARVRServer.world_scale != _last_world_scale:
 		_last_world_scale = ARVRServer.world_scale
 		transform = _transform.scaled(Vector3.ONE * _last_world_scale)
+		emit_signal("hand_scale_changed", _last_world_scale)
 
 	# Animate the hand mesh with the controller inputs
 	var controller : ARVRController = get_parent()
