@@ -1,4 +1,18 @@
+class_name XRToolsHand
 extends Spatial
+
+
+##
+## XR Hand Script
+##
+## @desc:
+##     This script manages a godot-xr-tools hand. It animates the hand blending
+##     grip and trigger animations based on controller input.
+##
+##     Additionally the hand script detects world-scale changes in the ARVRServer
+##     and re-scales the hand appropriately so the hand stays scaled to the
+##     physical hand of the user.
+##
 
 
 # Signal emitted when the hand scale changes
@@ -14,7 +28,7 @@ onready var _transform := transform
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(delta: float) -> void:
 	# Scale the hand mesh with the world scale. This is required for OpenXR plugin
 	# 1.3.0 and later where the plugin no-longer scales the controllers with
 	# world_scale

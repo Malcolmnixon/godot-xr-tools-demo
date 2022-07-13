@@ -1,9 +1,37 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://addons/godot-xr-tools/assets/LeftHand.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/godot-xr-tools/assets/HandPhysicsBone.gd" type="Script" id=2]
+[ext_resource path="res://addons/godot-xr-tools/assets/PhysicsHand.gd" type="Script" id=3]
 
 [node name="LeftPhysicsHand" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+bone_group = "left_hand"
+
+[node name="Skeleton" parent="LeftHand/Armature_Left" index="0"]
+bones/0/bound_children = [ NodePath("BoneRoot") ]
+bones/1/bound_children = [ NodePath("BoneThumbMetacarpal") ]
+bones/2/bound_children = [ NodePath("BoneThumbProximal") ]
+bones/3/bound_children = [ NodePath("BoneThumbDistal") ]
+bones/4/bound_children = [ NodePath("BoneIndexMetacarpal") ]
+bones/5/bound_children = [ NodePath("BoneIndexProximal") ]
+bones/6/bound_children = [ NodePath("BoneIndexMiddle") ]
+bones/7/bound_children = [ NodePath("BoneIndexDistal") ]
+bones/8/bound_children = [ NodePath("BoneMiddleMetacarpal") ]
+bones/9/bound_children = [ NodePath("BoneMiddleProximal") ]
+bones/10/bound_children = [ NodePath("BoneMiddleMiddle") ]
+bones/11/bound_children = [ NodePath("BoneMiddleDistal") ]
+bones/12/bound_children = [ NodePath("BoneRingMetacarpal") ]
+bones/13/bound_children = [ NodePath("BoneRingProximal") ]
+bones/14/bound_children = [ NodePath("BoneRingMiddle") ]
+bones/15/bound_children = [ NodePath("BoneRingDistal") ]
+bones/16/bound_children = [ NodePath("BonePinkyMetacarpal") ]
+bones/17/bound_children = [ NodePath("BonePinkyProximal") ]
+bones/18/bound_children = [ NodePath("BonePinkyMiddle") ]
+bones/19/bound_children = [ NodePath("BonePinkyDistal") ]
+
+[node name="Hand_Left" parent="LeftHand/Armature_Left/Skeleton" index="0"]
+material/0 = null
 
 [node name="BoneRoot" type="BoneAttachment" parent="LeftHand/Armature_Left/Skeleton" index="1"]
 transform = Transform( 1, -2.50192e-40, 1.51496e-08, 1.51445e-08, -0.025905, -0.999665, 3.92449e-10, 0.999664, -0.025905, 7.2293e-21, 0.000360775, -0.0235019 )
@@ -45,12 +73,14 @@ transform = Transform( 0.984049, -0.177367, -0.0137285, -0.020051, -0.0339034, -
 bone_name = "index_middle"
 script = ExtResource( 2 )
 length = 0.025
+bone_group = "index_finger"
 
 [node name="BoneIndexDistal" type="BoneAttachment" parent="LeftHand/Armature_Left/Skeleton" index="8"]
 transform = Transform( 0.927501, -0.373365, 0.0184361, -0.00490146, -0.0614605, -0.998098, 0.373788, 0.925646, -0.0588348, -0.000317366, 0.0346926, 0.155956 )
 bone_name = "index_distal"
 script = ExtResource( 2 )
 length = 0.02
+bone_group = "index_finger"
 
 [node name="BoneMiddleMetacarpal" type="BoneAttachment" parent="LeftHand/Armature_Left/Skeleton" index="9"]
 transform = Transform( 0.996581, 0.0825, 0.00438378, -0.00516692, 0.115197, -0.993329, -0.0824547, 0.98991, 0.11523, -2.08602e-09, -0.000522293, 0.0105753 )

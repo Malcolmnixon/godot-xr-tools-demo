@@ -139,6 +139,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot-xr-tools/objects/Snap_Zone.gd"
 }, {
+"base": "Spatial",
+"class": "XRToolsHand",
+"language": "GDScript",
+"path": "res://addons/godot-xr-tools/assets/Hand.gd"
+}, {
 "base": "BoneAttachment",
 "class": "XRToolsHandPhysicsBone",
 "language": "GDScript",
@@ -153,6 +158,11 @@ _global_script_classes=[ {
 "class": "XRToolsInteractableBody",
 "language": "GDScript",
 "path": "res://addons/godot-xr-tools/objects/Interactable_body.gd"
+}, {
+"base": "XRToolsHand",
+"class": "XRToolsPhysicsHand",
+"language": "GDScript",
+"path": "res://addons/godot-xr-tools/assets/PhysicsHand.gd"
 }, {
 "base": "RigidBody",
 "class": "XRToolsPickable",
@@ -186,9 +196,11 @@ _global_script_class_icons={
 "XRTHighlightRing": "",
 "XRTHighlightVisible": "",
 "XRTSnapZone": "",
+"XRToolsHand": "",
 "XRToolsHandPhysicsBone": "",
 "XRToolsInteractableArea": "",
 "XRToolsInteractableBody": "",
+"XRToolsPhysicsHand": "",
 "XRToolsPickable": ""
 }
 
