@@ -4,6 +4,10 @@
 - Added crouch movement provider
 - Added example fall damage detection
 - Added moving platform support to player body
+- Fixed player height-clamping to work in player-units
+- Fixed glide T-pose detection to work in player-units
+- Fixed jump detection to work in player-units
+- Added valid-layer checking to teleport movement
 - Modified hands to scale with world_scale (required for godot-openxr 1.3.0 and later)
 
 # 2.4.1

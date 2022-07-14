@@ -96,6 +96,7 @@ smooth_rotation = true
 
 [node name="Function_Grapple_movement" parent="RightHandController" index="6" instance=ExtResource( 20 )]
 grapple_length = 20.0
+grapple_collision_mask = 9
 friction = 0.2
 
 [node name="SpotCamera" parent="RightHandController" index="7" instance=ExtResource( 5 )]
