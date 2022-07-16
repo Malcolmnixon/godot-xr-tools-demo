@@ -19,6 +19,7 @@ albedo_texture = ExtResource( 3 )
 uv1_triplanar = true
 
 [node name="GrabCube" type="RigidBody"]
+collision_mask = 131073
 gravity_scale = 0.0
 can_sleep = false
 script = ExtResource( 2 )

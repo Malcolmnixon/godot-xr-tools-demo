@@ -57,21 +57,18 @@ material/0 = SubResource( 3 )
 [node name="Snap_Zone1" parent="." instance=ExtResource( 3 )]
 transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -1, 1.5, 0.4 )
 grab_distance = 0.2
-group_filter = "grab_cube_group"
 
 [node name="XRTHighlightRing" parent="Snap_Zone1" instance=ExtResource( 2 )]
 
 [node name="Snap_Zone2" parent="." instance=ExtResource( 3 )]
 transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 1.5, 0.4 )
 grab_distance = 0.2
-group_filter = "grab_cube_group"
 
 [node name="XRTHighlightRing" parent="Snap_Zone2" instance=ExtResource( 2 )]
 
 [node name="Snap_Zone3" parent="." instance=ExtResource( 3 )]
 transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 1, 1.5, 0.4 )
 grab_distance = 0.2
-group_filter = "grab_cube_group"
 
 [node name="XRTHighlightRing" parent="Snap_Zone3" instance=ExtResource( 2 )]
 
