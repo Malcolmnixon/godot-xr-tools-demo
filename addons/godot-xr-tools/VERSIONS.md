@@ -1,3 +1,6 @@
+# 2.6.0
+- Fixed enforcement of direct-movement maximum speed
+
 # 2.5.0
 - Added advanced player height control
 - Modified climbing to collapse player to a sphere to allow mounting climbed objects
@@ -11,6 +14,7 @@
 - Modified hand meshes (blend and glb) to be scaled, so the hand scenes can be 1:1 scaled
 - Modified hands to scale with world_scale (required for godot-openxr 1.3.0 and later)
 - Added physics hands with PhysicsBody bones
+- Fixed disabling of _process in XRToolsPickable script
 
 # 2.4.1
 - Fixed grab distance
