@@ -418,12 +418,11 @@ func _apply_velocity_and_control(delta: float):
 		var collision_physics = GroundPhysics.get_physics(collision_physics_node, default_physics)
 		var bounce_threshold := GroundPhysicsSettings.get_bounce_threshold(collision_physics, default_physics)
 		var bounciness := GroundPhysicsSettings.get_bounciness(collision_physics, default_physics)
-
+		var magnitude := -collision.normal.dot(local_velocity)
+		
 		# Detect if bounce should be performed
-		if bounciness > 0.0 and local_velocity.length() >= bounce_threshold:
-			var normal := collision.normal
-			var magnitude := ground_vector.dot(local_velocity)
-			local_velocity -= 2 * ground_vector * magnitude * bounciness
+		if bounciness > 0.0 and magnitude >= bounce_threshold:
+			local_velocity += 2 * collision.normal * magnitude * bounciness
 			velocity = local_velocity + ground_velocity
 			emit_signal("player_bounced", collision_node, magnitude)
 

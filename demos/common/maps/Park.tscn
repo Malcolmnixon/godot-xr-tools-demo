@@ -138,6 +138,15 @@ world_scale_rate = 0.75
 [node name="Trampoline" parent="." instance=ExtResource( 18 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.45058e-09, 0, -16 )
 
+[node name="Trampoline3" parent="." instance=ExtResource( 18 )]
+transform = Transform( 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 24.7, 0.7, -19 )
+
+[node name="Trampoline4" parent="." instance=ExtResource( 18 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 0, -19 )
+
+[node name="Trampoline5" parent="." instance=ExtResource( 18 )]
+transform = Transform( 0.766044, 0.642788, 0, -0.642788, 0.766044, 0, 0, 0, 1, 21.3, 0.6, -19 )
+
 [node name="Trampoline2" parent="." instance=ExtResource( 18 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.45058e-09, 0, -19 )
 
