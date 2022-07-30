@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://demos/common/map-items/RampPark.tscn" type="PackedScene" id=1]
 [ext_resource path="res://demos/common/maps/GroundPlane.tscn" type="PackedScene" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://demos/common/map-items/elevator/Elevator.tscn" type="PackedScene" id=15]
 [ext_resource path="res://demos/common/map-items/carousel/Carousel.tscn" type="PackedScene" id=16]
 [ext_resource path="res://demos/common/map-items/WorldScaleArea.tscn" type="PackedScene" id=17]
+[ext_resource path="res://demos/common/map-items/Trampoline.tscn" type="PackedScene" id=18]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Draft"
@@ -54,10 +55,10 @@ tracks/0/keys = {
 [node name="GroundPlane" parent="." instance=ExtResource( 2 )]
 
 [node name="RampPark" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -4 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -4 )
 
 [node name="RampPark2" parent="." instance=ExtResource( 1 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1, 0, -14 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.5, 0, -14 )
 
 [node name="ConicRamp" parent="." instance=ExtResource( 3 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9.53674e-07, 0, 15 )
@@ -133,6 +134,12 @@ world_scale_rate = 1.5
 [node name="ShrinkArea" parent="." instance=ExtResource( 17 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 13 )
 world_scale_rate = 0.75
+
+[node name="Trampoline" parent="." instance=ExtResource( 18 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.45058e-09, 0, -16 )
+
+[node name="Trampoline2" parent="." instance=ExtResource( 18 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.45058e-09, 0, -19 )
 
 [editable path="WindTunnel2"]
 [editable path="WindTunnel2/DraftShow"]

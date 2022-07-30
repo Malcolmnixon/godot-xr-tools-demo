@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://addons/wahooney.itch.io/white_grid.png" type="Texture" id=1]
+[ext_resource path="res://addons/godot-xr-tools/overrides/GroundPhysics.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/godot-xr-tools/overrides/GroundPhysicsSettings.gd" type="Script" id=3]
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 2, 0.2, 2 )
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.545098, 0.156863, 0.721569, 1 )
+albedo_texture = ExtResource( 1 )
+uv1_triplanar = true
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 1, 0.1, 1 )
+
+[sub_resource type="Resource" id=4]
+script = ExtResource( 3 )
+flags = 96
+move_drag = 5.0
+move_traction = 30.0
+stop_on_slope = true
+move_max_slope = 45.0
+jump_max_slope = 45.0
+jump_velocity = 3.0
+bounciness = 0.9
+bounce_threshold = 0.3
+
+[node name="Trampoline" type="StaticBody" groups=["trampoline"]]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 3 )
+
+[node name="GroundPhysics" parent="." instance=ExtResource( 2 )]
+physics = SubResource( 4 )

@@ -12,3 +12,5 @@ stop_on_slope = true
 move_max_slope = 45.0
 jump_max_slope = 45.0
 jump_velocity = 0.0
+bounciness = 0.0
+bounce_threshold = 1.0

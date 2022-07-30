@@ -31,3 +31,8 @@ func _on_Function_Grapple_movement_grapple_finished():
 
 func _on_Function_Fall_damage_player_fall_damage(_damage: float):
 	$FallSound.play()
+
+
+func _on_PlayerBody_player_bounced(collider: PhysicsBody, magnitude: float):
+	if collider.is_in_group("trampoline"):
+		$TrampolineSound.play()
